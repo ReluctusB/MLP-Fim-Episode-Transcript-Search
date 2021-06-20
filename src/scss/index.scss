@@ -55,4 +55,7 @@ h1, p {
 
 .results-box {
 	padding: 1rem;
+	p > div {
+		//text-align: right;
+	}
 }

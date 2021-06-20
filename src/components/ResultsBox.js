@@ -51,17 +51,23 @@ class ResultsBox extends Component {
 
 				<hr/>
 
+				<p><small>
+					{
+						(this.state.matches.length || !this.props.searchString) ? this.state.matches.length : "0"
+					} Result(s)
+				</small></p>
+
 				<div>
 					{
 						this.state.matches.map((line, index) => (
-							<p key={index}>{line.speaker}: {line.line} - <small>{line.episode} | ep. {line.eNumber}</small></p>
+							<p key={index}><b>{line.speaker}</b>: {line.line} 
+								<div>
+									- <small>{line.episode} | ep. {line.eNumber}</small> -
+								</div>
+							</p>
 						))
 					}
-					<p>
-					{
-						(this.state.matches.length || !this.props.searchString) ? "" : "No results found."
-					}
-					</p>
+					
 				</div>
 			</div>
 
