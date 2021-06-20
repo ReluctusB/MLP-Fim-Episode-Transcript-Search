@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+
+$font-family: "Open Sans", sans-serif;
+
+$background-colour: #333333;
+$text-colour: #ffffff;
+
+body, #root, .App {
+	z-index: -10000000;
+	position: relative;
+	margin: 0;
+	font-family: #{$font-family};
+	font-size: 1.1rem;
+}
+
+body {
+	background-color: $background-colour;
+	background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+	color: $text-colour;
+}
+
+.App {
+	overflow: hidden;
+	min-height: 100vh;
+	width: 80%;
+	margin: 0 auto;
+	background-color: #111111;
+	padding: 1rem;
+}
+
+h1, p {
+	font-family: #{$font-family};
+}
+
+
+.search-bar {
+	width: 100%;
+	text-align: center;
+
+	input[type="search"] {
+		height: 3rem;
+		width: 70%;
+		font-size: 1.5rem;
+	}
+
+	button {
+		height: 3rem;
+		width:20%;
+		max-width: 4rem;
+		font-size: 1.5rem;
+		margin-left: .5rem;
+	}
+
+}
+
+.results-box {
+	padding: 1rem;
+}
