@@ -54,17 +54,18 @@ class ResultsBox extends Component {
 				<p><small>
 					{
 						(this.state.matches.length || !this.props.searchString) ? this.state.matches.length : "0"
-					} Result(s)
+					} Result(s):
 				</small></p>
 
 				<div>
 					{
 						this.state.matches.map((line, index) => (
-							<p key={index}><b>{line.speaker}</b>: {line.line} 
-								<div>
+							<div key={index} className="line-box">
+								<b>{line.speaker}</b>: {line.line} 
+								<div >
 									- <small>{line.episode} | ep. {line.eNumber}</small> -
 								</div>
-							</p>
+							</div>
 						))
 					}
 					

@@ -11,6 +11,11 @@ function App() {
         <h1>MLP: FiM Episode Transcript Search</h1>
       </header>
       <SearchBar/>
+      <footer>
+        <hr/>
+        <p>MLP: Friendship is Magic® - © Hasbro Inc.®</p>
+        <p>Created by RB_ | <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search">Github</a></p>
+      </footer>
     </div>
   );
 }
