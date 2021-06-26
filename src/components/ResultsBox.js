@@ -15,13 +15,42 @@ class ResultsBox extends Component {
 		if (!this.props.searchString) {
 			return;
 		}
+		let checkString = this.props.searchString.trim();
+		let charString = null;
+		let epString = null;
 
-		let searchRegex = new RegExp(this.props.searchString, "i");
+		let tags = checkString.match( /{.*?}/gi);
+		for (const tag in tags) {
+			if (tags[tag].startsWith("{character:")) {
+				checkString = checkString.replace(tags[tag], "")
+				charString = tags[tag].replace("{character:", "").replace("}", "")
+			} else if (tags[tag].startsWith("{episode:")) {
+				checkString = checkString.replace(tags[tag], "")
+				epString = tags[tag].replace("{episode:", "").replace("}", "")
+			}
+		}
+
+
+		checkString = checkString.trim();
+
+		let searchRegex = new RegExp(checkString, "i");
 		let matchArray = []
 
 		for (const prop in episodeDatabase) {
 			episodeDatabase[prop].transcript.forEach(lines => {
 				if (searchRegex.test(lines.line)) {
+					if (charString) {
+						let charRegex = new RegExp(charString, "i");
+						if (!charRegex.test(lines.character)) {
+							return
+						}
+					}
+					if (epString) {
+						let epRegex = new RegExp(epString, "i");
+						if (!epRegex.test(episodeDatabase[prop].title)) {
+							return
+						}
+					}
 					matchArray.push({
 						line: lines.line,
 						speaker: lines.character,
@@ -71,7 +100,6 @@ class ResultsBox extends Component {
 					
 				</div>
 			</div>
-
 		);
 	}
 }

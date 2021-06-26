@@ -32,14 +32,13 @@ class SearchBar extends Component {
 		return (
 			<div  className="search-bar">
 				<form onSubmit={this.setSearchString}>
-				<input 
-					type="search" 
-					placeholder="Search Transcripts" 
-					value={this.state.preSearchString}
-					onInput={e => this.setPreSearchString(e.target.value)}
-
-				/>
-				<button type="submit">Go</button>
+					<input 
+						type="search" 
+						placeholder="Search Transcripts" 
+						value={this.state.preSearchString}
+						onInput={e => this.setPreSearchString(e.target.value)}
+					/>
+					<button type="submit">Go</button>
 				</form>
 
 				<ResultsBox
