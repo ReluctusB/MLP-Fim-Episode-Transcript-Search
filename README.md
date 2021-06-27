@@ -22,4 +22,10 @@ For example:
 ```
 This will return any line in Fall Weather Friends spoken by Rainbow Dash containing the word 'Applejack'.
 
-All search fields support Regular Expressions.
+All search fields support Regular Expressions. Regular Expressions are a powerful way to search through text. You can learn more about them [here](https://www.regular-expressions.info/). 
+
+As an example, if you wanted to search for 'Tom' and only 'Tom', you could use the following:
+```
+\bTom\b
+```
+This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
