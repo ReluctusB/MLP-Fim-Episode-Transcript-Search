@@ -39,6 +39,7 @@ class SearchBar extends Component {
 						onInput={e => this.setPreSearchString(e.target.value)}
 					/>
 					<button type="submit">Go</button>
+					<a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search#search-help">Help</a>
 				</form>
 
 				<ResultsBox
