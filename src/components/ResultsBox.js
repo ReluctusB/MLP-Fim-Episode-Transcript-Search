@@ -23,10 +23,10 @@ class ResultsBox extends Component {
 		for (const tag in tags) {
 			if (tags[tag].startsWith("{character:")) {
 				checkString = checkString.replace(tags[tag], "")
-				charString = tags[tag].replace("{character:", "").replace("}", "")
+				charString = tags[tag].replace("{character:", "").replace("}", "").trim()
 			} else if (tags[tag].startsWith("{episode:")) {
 				checkString = checkString.replace(tags[tag], "")
-				epString = tags[tag].replace("{episode:", "").replace("}", "")
+				epString = tags[tag].replace("{episode:", "").replace("}", "").trim()
 			}
 		}
 
