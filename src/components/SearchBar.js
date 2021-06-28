@@ -13,6 +13,17 @@ class SearchBar extends Component {
 		this.setSearchString = this.setSearchString.bind(this);
 	}
 
+	componentDidMount() {
+		const urlSearchParams = new URLSearchParams(window.location.search)
+		if (urlSearchParams.has("search")) {
+			this.setState({
+				...this.state,
+				preSearchString: urlSearchParams.get("search"),
+				searchString: urlSearchParams.get("search"),
+			});
+		}
+	}
+
 	setPreSearchString(inString) {
 		this.setState({
 			...this.state,
@@ -22,6 +33,7 @@ class SearchBar extends Component {
 
 	setSearchString(e) {
 		e.preventDefault();
+		window.history.replaceState(null, null, "?search=" + encodeURIComponent(this.state.preSearchString));
 		this.setState({
 			...this.state,
 			searchString: this.state.preSearchString,
