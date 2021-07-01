@@ -3,7 +3,8 @@
 $font-family: "Open Sans", sans-serif;
 
 $background-colour: #333333;
-$text-colour: #ffffff;
+$box-colour: #111111;
+$text-colour: #bbbbbb;
 
 body, #root, .App {
 	z-index: -10000000;
@@ -11,7 +12,6 @@ body, #root, .App {
 	margin: 0;
 	font-family: #{$font-family};
 	font-size: 1.1rem;
-
 }
 
 body {
@@ -29,7 +29,7 @@ body, html {
 	min-height: 100vh;
 	width: 80%;
 	margin: 0 auto;
-	background-color: #111111;
+	background-color: $box-colour;
 	padding: 1rem;
 	display: -webkit-flexbox;
     display: -webkit-flex;
@@ -75,6 +75,7 @@ a:active {
 		height: 3rem;
 		width: 70%;
 		font-size: 1.5rem;
+		background-color: $text-colour;
 	}
 
 	button {
@@ -84,7 +85,12 @@ a:active {
 		font-size: 1.5rem;
 		margin-left: .5rem;
 		margin-right:1rem;
+		background-color: $text-colour;
 	}
+}
+
+hr {
+	border: 1px solid $text-colour;
 }
 
 .results-box {
