@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from "./components/SearchBar";
+import StyleSwitch from "./components/StyleSwitch";
 import './scss/index.scss';
 
 
@@ -11,6 +12,7 @@ function App() {
         <h1>MLP: FiM Episode Transcript Search</h1>
       </header>
       <SearchBar/>
+      <StyleSwitch/>
       <footer>
         <hr/>
         <p>MLP: Friendship is Magic® - © Hasbro Inc.®</p>
