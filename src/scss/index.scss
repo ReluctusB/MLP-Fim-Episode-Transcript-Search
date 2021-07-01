@@ -2,8 +2,28 @@
 
 $font-family: "Open Sans", sans-serif;
 
-$background-colour: #333333;
-$text-colour: #ffffff;
+/*$background-colour: #333333;
+$box-colour: #111111;
+$text-colour: #bbbbbb;*/
+
+:root {
+    --background-colour: #333333;
+    --text-colour: #bbbbbb;
+    --box-colour: #111111;
+}
+
+html[data-theme='light'] {
+    --background-colour: #eee;
+    --box-colour: #ffffff;
+    --text-colour: #000000;
+}
+
+html[data-theme='dark'] {
+    --background-colour: #333333;
+    --box-colour: #111111;
+    --text-colour: #bbbbbb;
+    
+}
 
 body, #root, .App {
 	z-index: -10000000;
@@ -11,13 +31,12 @@ body, #root, .App {
 	margin: 0;
 	font-family: #{$font-family};
 	font-size: 1.1rem;
-
 }
 
 body {
-	background-color: $background-colour;
+	background-color: var(--background-colour);
 	background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
-	color: $text-colour;
+	color: var(--text-colour);
 }
 
 body, html {
@@ -29,7 +48,7 @@ body, html {
 	min-height: 100vh;
 	width: 80%;
 	margin: 0 auto;
-	background-color: #111111;
+	background-color: var(--box-colour);
 	padding: 1rem;
 	display: -webkit-flexbox;
     display: -webkit-flex;
@@ -48,12 +67,12 @@ h1, p {
 }
 
 a:link {
-  color: $text-colour;
+  color: var(--text-colour);
 }
 
 /* visited link */
 a:visited {
-  color: $text-colour;
+  color: var(--text-colour);
 }
 
 /* mouse over link */
@@ -63,7 +82,7 @@ a:hover {
 
 /* selected link */
 a:active {
-  color: $text-colour;
+  color: var(--text-colour);
 }
 
 .search-bar {
@@ -75,6 +94,9 @@ a:active {
 		height: 3rem;
 		width: 70%;
 		font-size: 1.5rem;
+		background-color: var(--text-colour);
+		color: var(--box-colour);
+		padding-left: 1rem;
 	}
 
 	button {
@@ -84,7 +106,14 @@ a:active {
 		font-size: 1.5rem;
 		margin-left: .5rem;
 		margin-right:1rem;
+		background-color: var(--text-colour);
+		color: var(--box-colour);
+		cursor: pointer;
 	}
+}
+
+hr {
+	border: 1px solid var(--text-colour);
 }
 
 .results-box {
@@ -95,5 +124,20 @@ a:active {
 		& > div {
 			margin: .3rem 0 0 0;
 		}
+	}
+}
+
+.style-switch {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+
+	button {
+		background-color: var(--text-colour);
+		height: 1.5rem;
+		width: 1.5rem;
+		cursor: pointer;
+		border-color: var(--box-colour);;
+		border-radius: 5px;
 	}
 }
