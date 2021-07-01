@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 class StyleSwitch extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
 	}
 
 	switchTheme() {
@@ -20,6 +17,13 @@ class StyleSwitch extends Component {
 	    document.documentElement.setAttribute('data-theme', targetTheme)
 	    localStorage.setItem('theme', targetTheme);
 	}
+
+	componentDidMount() {
+		let storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+		if (storedTheme) {
+			document.documentElement.setAttribute('data-theme', storedTheme)
+		}
+  	}
 
 	render() {
 		return (

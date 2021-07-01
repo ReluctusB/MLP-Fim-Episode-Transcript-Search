@@ -96,6 +96,7 @@ a:active {
 		font-size: 1.5rem;
 		background-color: var(--text-colour);
 		color: var(--box-colour);
+		padding-left: 1rem;
 	}
 
 	button {
@@ -107,6 +108,7 @@ a:active {
 		margin-right:1rem;
 		background-color: var(--text-colour);
 		color: var(--box-colour);
+		cursor: pointer;
 	}
 }
 
