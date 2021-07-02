@@ -6,7 +6,6 @@ class StyleSwitch extends Component {
 	}
 
 	switchTheme() {
-		console.log("switch!")
 		let currentTheme = document.documentElement.getAttribute("data-theme");
 	    let targetTheme = "light";
 
