@@ -29,3 +29,15 @@ As an example, if you wanted to search for 'Tom' and only 'Tom', you could use t
 \bTom\b
 ```
 This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
+
+### What's in here
+
+- Every episode of My Little Pony: Friendship is Magic
+- My Little Pony: The Movie
+- My Little Pony: Rainbow Roadtrip
+
+### What isn't in here
+
+- All My Little Pony: Equestria Girls content
+- My Little Pony: Pony Life
+
