@@ -55,7 +55,8 @@ class ResultsBox extends Component {
 						line: lines.line,
 						speaker: lines.character,
 						episode: episodeDatabase[prop].title,
-						eNumber: episodeDatabase[prop].number_overall
+						eNumber: episodeDatabase[prop].number_in_season ? episodeDatabase[prop].number_in_season : "N/A",
+						season: episodeDatabase[prop].season ? episodeDatabase[prop].season : "N/A"
 					})
 				}
 			})
@@ -92,7 +93,7 @@ class ResultsBox extends Component {
 							<div key={index} className="line-box">
 								<b>{line.speaker}</b>: {line.line} 
 								<div >
-									- <small>{line.episode} | ep. {line.eNumber}</small> -
+									- <small>{line.episode} | Season {line.season} Episode {line.eNumber}</small> -
 								</div>
 							</div>
 						))
