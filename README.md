@@ -36,6 +36,7 @@ This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
 - My Little Pony: The Movie
 - My Little Pony: Rainbow Roadtrip
 - My Little Pony: Best Gift Ever
+- Animated Shorts
 
 ### What isn't in here
 
