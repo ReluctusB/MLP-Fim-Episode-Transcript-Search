@@ -35,6 +35,7 @@ This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
 - Every episode of My Little Pony: Friendship is Magic
 - My Little Pony: The Movie
 - My Little Pony: Rainbow Roadtrip
+- My Little Pony: Best Gift Ever
 
 ### What isn't in here
 
