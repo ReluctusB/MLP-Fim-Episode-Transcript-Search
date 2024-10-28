@@ -4,7 +4,6 @@ import StyleSwitch from "./components/StyleSwitch";
 import './scss/index.scss';
 
 
-
 function App() {
   return (
     <div className="App">
