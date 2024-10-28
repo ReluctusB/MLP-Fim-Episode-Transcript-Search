@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <div id="Manebar"></div>
       <header className="App-header">
-        <h1>MLP: FiM Episode Transcript Search</h1>
+        <h1>MLP: FiM Transcript Search</h1>
       </header>
       <SearchBar/>
       <StyleSwitch/>

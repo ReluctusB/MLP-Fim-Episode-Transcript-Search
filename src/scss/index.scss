@@ -1,6 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Quando&display=swap');
 
-$font-family: "Open Sans", sans-serif;
+
+$font-family: "Quando", "Open Sans", sans-serif;
+$font-family-b: "Judson", serif;
+
 
 /*$background-colour: #333333;
 $box-colour: #111111;
@@ -23,10 +27,8 @@ html[data-theme='light'] {
 html[data-theme='dark'] {
     --background-colour: #352e38;
     --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
-    --box-colour: #1a0b20;
-    --text-colour: #bbbbbb;
-
-    
+    --box-colour: #17111a;
+    --text-colour: #a3a3a3;   
 }
 
 body, #root, .App {
@@ -62,13 +64,26 @@ body, html {
     flex-direction: column;
 }
 
-footer {
-	font-size: .7rem;
+header {
+	padding-left: 1rem;
 }
 
-h1, p {
+footer {
+	font-size: 1rem;
+}
+
+h1 {
 	font-family: #{$font-family};
 }
+
+p {
+	font-family: #{$font-family-b};
+}
+
+small {
+		font-family: #{$font-family-b};
+		font-size: 1.1rem;
+	}
 
 a:link {
   color: var(--text-colour);
