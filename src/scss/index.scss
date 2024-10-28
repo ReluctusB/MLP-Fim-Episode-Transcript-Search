@@ -8,20 +8,24 @@ $text-colour: #bbbbbb;*/
 
 :root {
     --background-colour: #333333;
+    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
     --text-colour: #bbbbbb;
     --box-colour: #111111;
 }
 
 html[data-theme='light'] {
     --background-colour: #eee;
+    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
     --box-colour: #ffffff;
     --text-colour: #000000;
 }
 
 html[data-theme='dark'] {
-    --background-colour: #333333;
-    --box-colour: #111111;
+    --background-colour: #352e38;
+    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
+    --box-colour: #1a0b20;
     --text-colour: #bbbbbb;
+
     
 }
 
@@ -44,7 +48,7 @@ body, html {
 }
 
 .App {
-	overflow: hidden;
+	overflow: visible;
 	min-height: 100vh;
 	width: 80%;
 	margin: 0 auto;
@@ -137,7 +141,17 @@ hr {
 		height: 1.5rem;
 		width: 1.5rem;
 		cursor: pointer;
-		border-color: var(--box-colour);;
+		border-color: var(--box-colour);
 		border-radius: 5px;
 	}
+}
+
+#Manebar {
+		width: 1rem;
+   	position: absolute;
+   	top: 0px;
+   	right: 0px;
+   	bottom: 0px;
+   	left: -.5rem;
+   	background-image: var(--mane-grad);
 }

@@ -7,6 +7,7 @@ import './scss/index.scss';
 function App() {
   return (
     <div className="App">
+      <div id="Manebar"></div>
       <header className="App-header">
         <h1>MLP: FiM Episode Transcript Search</h1>
       </header>
