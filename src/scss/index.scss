@@ -15,21 +15,45 @@ $text-colour: #bbbbbb;*/
     --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
     --text-colour: #bbbbbb;
     --box-colour: #111111;
+    --background-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    --border-colour: #bbbbbb;
+    --search-colour: #bbbbbb;
+    --search-text-colour: #111111;
+    --button-colour: #bbbbbb;
+    --button-text-colour: #111111;
+    --button-border-colour: #111111;
+    --head-text-colour: #bbbbbb;
 }
 
 html[data-theme='light'] {
-    --background-colour: #eee;
-    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
-    --box-colour: #ffffff;
+    --background-colour: #eeedb4;
+    --mane-grad: linear-gradient(to right, #ecbb48 33.33%, #e68c40 33.33% 66%, #cb502d 33% 66%);
+    --box-colour: #ede8ed;
     --text-colour: #000000;
+    --background-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cb502d' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    --border-colour: #ecbb48;
+    --search-colour: #eeedb4;
+    --search-text-colour: #111111;
+    --button-colour: #e68c40;
+    --button-text-colour: #111111;
+    --button-border-colour: #cb502d;
+    --head-text-colour: #000000;
+
 }
 
 html[data-theme='dark'] {
-    --background-colour: #352e38;
-    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
-    --box-colour: #17111a;
+    --background-colour: #0c0319;
+    --mane-grad: linear-gradient(to right, #471785 33.33%, #4a53bc 33.33% 66%, #6888f7 33% 66%);
+    --box-colour: #030f0d;
     --text-colour: #a3a3a3;   
-}
+    --border-colour: #471785;
+    --search-colour: #eeeeee;
+    --search-text-colour:  #030f0d;
+    --button-colour: #6888f7;
+    --button-text-colour: #eeeeee;
+    --button-border-colour: #471785;
+    --head-text-colour: #eeeeee;
+  }
 
 body, #root, .App {
 	z-index: -10000000;
@@ -41,7 +65,7 @@ body, #root, .App {
 
 body {
 	background-color: var(--background-colour);
-	background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+	background-image: var(--background-pattern);
 	color: var(--text-colour);
 }
 
@@ -53,9 +77,11 @@ body, html {
 	overflow: visible;
 	min-height: 100vh;
 	width: 80%;
+	max-width: 80rem;
 	margin: 0 auto;
 	background-color: var(--box-colour);
 	padding: 1rem;
+	border-right: 1px solid var(--border-colour);
 	display: -webkit-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -69,11 +95,14 @@ header {
 }
 
 footer {
+	padding: 0 1rem 0 1rem;
 	font-size: 1rem;
 }
 
 h1 {
 	font-family: #{$font-family};
+	margin-top: .5rem;
+	color: var(--head-text-colour)
 }
 
 p {
@@ -113,21 +142,29 @@ a:active {
 		height: 3rem;
 		width: 70%;
 		font-size: 1.5rem;
-		background-color: var(--text-colour);
-		color: var(--box-colour);
+		background-color: var(--search-colour);
+		color: var(--search-text-colour);
 		padding-left: 1rem;
+		margin-right: 0;
+		border-radius: 10px;
+		border: 2px solid var(--border-colour);
+		border-color: var(--border-colour);
+
+
 	}
 
 	button {
 		height: 3rem;
-		width:20%;
+		width: 20%;
 		max-width: 4rem;
 		font-size: 1.5rem;
 		margin-left: .5rem;
 		margin-right:1rem;
-		background-color: var(--text-colour);
-		color: var(--box-colour);
+		background-color: var(--button-colour);
+		color: var(--button-text-colour);
 		cursor: pointer;
+		border-radius: 10px;
+		border: 2px solid var(--button-border-colour);
 	}
 }
 
