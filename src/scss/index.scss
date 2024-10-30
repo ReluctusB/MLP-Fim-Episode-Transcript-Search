@@ -51,7 +51,7 @@ html[data-theme='dark'] {
     --mane-grad-left: linear-gradient(to right, #471785 33.33%, #4a53bc 33.33% 66%, #6888f7 33% 66%);
     --mane-grad-right: linear-gradient(to right, #6888f7 33.33%, #4a53bc 33.33% 66%, #471785 33% 66%);
     --box-colour: #030f0d;
-    --text-colour: #a3a3a3;   
+    --text-colour: #b3b3b3;   
     --border-colour: #471785;
     --search-colour: #eeeeee;
     --search-text-colour:  #030f0d;
@@ -68,7 +68,7 @@ body, #root, .App {
 	position: relative;
 	margin: 0;
 	font-family: #{$font-family};
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 }
 
 body {
@@ -106,6 +106,7 @@ header {
 	h1 {
 		margin-left: 1rem;
 		margin-right: auto;
+		padding-right: 1rem;
 		font-family: #{$font-family};
 		margin-top: 1rem;
 		color: var(--head-text-colour)
@@ -140,7 +141,7 @@ p {
 
 small {
 		font-family: #{$font-family-b};
-		font-size: 1.1rem;
+		font-size: 1.2rem;
 	}
 
 a:link {
@@ -206,6 +207,7 @@ hr {
 	.line-box {
 		max-width: 90%;
 		margin: 0 auto 2rem auto;
+		font-size: 1.1rem;
 		& > div {
 			margin: .3rem 0 0 0;
 		}
@@ -243,6 +245,25 @@ hr {
 svg {
 	position: relative;
 	top: 2px;
+}
+
+#to-top {
+	position: fixed;
+	right: 1rem;
+	bottom: 1rem;
+
+	&.hidden {
+		display: none;
+	}
+
+	button {
+		all: unset;
+		cursor: pointer;
+		color: var(--button-colour);
+		background-color: var(--border-colour);
+		border-radius: 7px;
+		padding: 0 2px;
+	}
 }
 
 @media screen and (max-width: 840px) {

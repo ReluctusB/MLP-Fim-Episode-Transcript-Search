@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from "./components/SearchBar";
 import StyleSwitch from "./components/StyleSwitch";
+import ToTop from "./components/ToTop";
 import './scss/index.scss';
 
 
@@ -26,6 +27,8 @@ function App() {
         <p>MLP: Friendship is Magic® - © Hasbro Inc.®</p>
         <p>Created by RB_ | <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search">Github</a></p>
       </footer>
+
+      <ToTop />
     </div>
   );
 }
