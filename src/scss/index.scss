@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Quando&display=swap');
 
-
 $font-family: "Quando", "Open Sans", sans-serif;
 $font-family-b: "Judson", serif;
 
@@ -12,7 +11,8 @@ $text-colour: #bbbbbb;*/
 
 :root {
     --background-colour: #333333;
-    --mane-grad: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
+    --mane-grad-left: linear-gradient(to right, #662d8a 33.33%, #ed438d 33.33% 66%, #273873 33% 66%);
+    --mane-grad-right: linear-gradient(to right, #273873 33.33%, #ed438d 33.33% 66%, #662d8a 33% 66%);
     --text-colour: #bbbbbb;
     --box-colour: #111111;
     --background-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
@@ -23,27 +23,33 @@ $text-colour: #bbbbbb;*/
     --button-text-colour: #111111;
     --button-border-colour: #111111;
     --head-text-colour: #bbbbbb;
+    --aside-colour: #333333;
+    --aside-text-colour: #bbbbbb;
 }
 
 html[data-theme='light'] {
     --background-colour: #eeedb4;
-    --mane-grad: linear-gradient(to right, #ecbb48 33.33%, #e68c40 33.33% 66%, #cb502d 33% 66%);
+    --mane-grad-left: linear-gradient(to right, #ecbb48 33.33%, #e68c40 33.33% 66%, #cb502d 33% 66%);
+    --mane-grad-right: linear-gradient(to right, #cb502d 33.33%, #e68c40 33.33% 66%, #ecbb48 33% 66%);
     --box-colour: #ede8ed;
     --text-colour: #000000;
     --background-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cb502d' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     --border-colour: #ecbb48;
     --search-colour: #eeedb4;
     --search-text-colour: #111111;
-    --button-colour: #e68c40;
-    --button-text-colour: #111111;
+    --button-colour: #cb502d;
+    --button-text-colour: #ede8ed;
     --button-border-colour: #cb502d;
     --head-text-colour: #000000;
+    --aside-colour: #cb502d;
+    --aside-text-colour: #ede8ed;
 
 }
 
 html[data-theme='dark'] {
     --background-colour: #0c0319;
-    --mane-grad: linear-gradient(to right, #471785 33.33%, #4a53bc 33.33% 66%, #6888f7 33% 66%);
+    --mane-grad-left: linear-gradient(to right, #471785 33.33%, #4a53bc 33.33% 66%, #6888f7 33% 66%);
+    --mane-grad-right: linear-gradient(to right, #6888f7 33.33%, #4a53bc 33.33% 66%, #471785 33% 66%);
     --box-colour: #030f0d;
     --text-colour: #a3a3a3;   
     --border-colour: #471785;
@@ -53,6 +59,8 @@ html[data-theme='dark'] {
     --button-text-colour: #eeeeee;
     --button-border-colour: #471785;
     --head-text-colour: #eeeeee;
+    --aside-colour: #6888f7;
+    --aside-text-colour: #eeeeee;
   }
 
 body, #root, .App {
@@ -80,7 +88,6 @@ body, html {
 	max-width: 80rem;
 	margin: 0 auto;
 	background-color: var(--box-colour);
-	padding: 1rem;
 	border-right: 1px solid var(--border-colour);
 	display: -webkit-flexbox;
     display: -webkit-flex;
@@ -92,18 +99,40 @@ body, html {
 
 header {
 	padding-left: 1rem;
+	display: flex;
+	flex-flow: row-reverse wrap;
+	justify-content: space-between;
+
+	h1 {
+		margin-left: 1rem;
+		margin-right: auto;
+		font-family: #{$font-family};
+		margin-top: 1rem;
+		color: var(--head-text-colour)
+	}
+
+	aside {
+		height: 1.7rem;
+		padding: .5rem .5rem .5rem .7rem;
+		border-top: none;
+		border-right: none;
+		border-radius: 0 0 0 10px;
+		text-align: center;
+		background-color: var(--aside-colour);
+		color: var(--aside-text-colour);
+		display: block;
+		width: 5rem;
+		white-space: nowrap;
+		
+	}
 }
 
 footer {
-	padding: 0 1rem 0 1rem;
+	padding: 0 2rem 0 2rem;
 	font-size: 1rem;
 }
 
-h1 {
-	font-family: #{$font-family};
-	margin-top: .5rem;
-	color: var(--head-text-colour)
-}
+
 
 p {
 	font-family: #{$font-family-b};
@@ -115,12 +144,12 @@ small {
 	}
 
 a:link {
-  color: var(--text-colour);
+  color: inherit;
 }
 
 /* visited link */
 a:visited {
-  color: var(--text-colour);
+  color: inherit;
 }
 
 /* mouse over link */
@@ -134,9 +163,9 @@ a:active {
 }
 
 .search-bar {
-	width: 100%;
 	text-align: center;
 	flex: 1 0 auto;
+	padding: 0 1rem 1rem 1rem;
 
 	input[type="search"] {
 		height: 3rem;
@@ -155,16 +184,15 @@ a:active {
 
 	button {
 		height: 3rem;
-		width: 20%;
-		max-width: 4rem;
+		padding: 0 .7rem;
 		font-size: 1.5rem;
 		margin-left: .5rem;
-		margin-right:1rem;
 		background-color: var(--button-colour);
 		color: var(--button-text-colour);
 		cursor: pointer;
 		border-radius: 10px;
 		border: 2px solid var(--button-border-colour);
+		font-family: #{$font-family-b};
 	}
 }
 
@@ -176,7 +204,8 @@ hr {
 	padding: 1rem;
 
 	.line-box {
-		margin: 0 0 2rem 0;
+		max-width: 90%;
+		margin: 0 auto 2rem auto;
 		& > div {
 			margin: .3rem 0 0 0;
 		}
@@ -184,12 +213,9 @@ hr {
 }
 
 .style-switch {
-	position: fixed;
-	bottom: 1rem;
-	right: 1rem;
-
 	button {
-		background-color: var(--text-colour);
+		all: unset;
+		color: inherit;
 		height: 1.5rem;
 		width: 1.5rem;
 		cursor: pointer;
@@ -198,12 +224,42 @@ hr {
 	}
 }
 
-#Manebar {
+.manebar {
 		width: 1rem;
    	position: absolute;
    	top: 0px;
-   	right: 0px;
    	bottom: 0px;
-   	left: -.5rem;
-   	background-image: var(--mane-grad);
+
+   	&.left {
+   		left: -.5rem;
+   		background-image: var(--mane-grad-left);
+   	}
+   	&.right {
+   		right: -.5rem;
+   		background-image: var(--mane-grad-right);
+   	}	
+}
+
+svg {
+	position: relative;
+	top: 2px;
+}
+
+@media screen and (max-width: 840px) {
+	header {
+		h1 {
+			font-size: 1.7rem;
+		}
+	}
+  .search-bar {
+		input[type="search"] {
+			width: 95%;
+			font-size: 1.1rem;
+		}
+
+		button {
+			margin-top: .5rem;
+			margin-left: 0;
+		}
+	}
 }
