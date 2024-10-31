@@ -7,7 +7,7 @@ class HelpInfo extends Component {
 
 	render() {
   		return(
-  			<div className="help-info">
+  			<div className="help-info page">
   				<hr/>
   				<h2>Search Parameters</h2>
   				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: &#123; &#125;. These can be combined with regular searches and each other.</p>

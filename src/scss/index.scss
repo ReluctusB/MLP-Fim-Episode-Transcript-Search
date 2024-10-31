@@ -301,16 +301,23 @@ svg {
 	}
 }
 
-.help-info {
+.page {
 	padding: 2rem;
 	padding-top: 0;
+	flex: 1 0 auto;
 
-	h3, h2 {
+	h2 {
+		margin-bottom: 1rem;
+		font-size: 1.9rem;
+	}
+
+	h3 {
 		margin-bottom: .5rem;
 	}
 
 	p, ul {
 		margin-top: .2rem;
+		font-size: 1.3rem;
 	}
 
 	li {
@@ -338,5 +345,13 @@ svg {
 			margin-top: .5rem;
 			margin-left: 0;
 		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.App {
+		overflow: visible;
+		
+		width: 90%;
 	}
 }

@@ -31,7 +31,16 @@ class Router extends Component {
   			case "/MLP-Fim-Episode-Transcript-Search/help":
   				return (<HelpInfo/>);
   			default:
-  				return (<div>AAAAAA</div>);
+  				return (
+  					<div className="error-page page">
+  						<hr/>
+  						<h2>Wuhoh! That's a 404 error!</h2>
+  						<p>We couldn't find that page! Maybe a cragadile ate it. Or a timberwolf. Or a—</p>
+  						<p>Regardless, check your url. You can click the page title to return to safer ground. Or, if you're seeing this page and you really don't think you should be, open an issue on our <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search/issues">Github.</a></p>
+  					</div>
+
+
+  				);
   		}
 	}
 }
