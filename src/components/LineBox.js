@@ -24,6 +24,11 @@ class LineBox extends Component {
 			if (urlSearchParams.get("scroll_to") === this.props.index.toString()) {
 				this.eleRef.current.scrollIntoView({behavior: "smooth", block: "center"})
 			}
+		} else {
+			this.setState({
+				...this.state,
+				highlighted: false,
+			});
 		}
 	}
 
@@ -56,6 +61,22 @@ class LineBox extends Component {
 		window.addEventListener('highlight', this.highlightCheck);
 		this.highlightCheck();
   	}
+
+  	// Checks if highlighted on prop update, i.e. when the search changes.
+  	static getDerivedStateFromProps(props, state) {
+		let urlSearchParams = new URLSearchParams(window.location.search);
+		if (urlSearchParams.has("scroll_to")) {
+			return {
+				...state,
+				highlighted: (urlSearchParams.get("scroll_to") === props.index.toString()),
+			}
+		} else {
+			return {
+				...state,
+				highlighted: false,
+			}
+		}
+	}
 
 	render() {
 		return (

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import ResultsBox from "./ResultsBox"
 
+//const highlightEvent = new Event("highlight");
+
 class SearchBar extends Component {
 	constructor(props) {
 		super(props);
@@ -24,6 +26,7 @@ class SearchBar extends Component {
 				searchString: urlSearchParams.get("search"),
 			});
 		}
+		//window.dispatchEvent(highlightEvent);
 	}
 
 	setPreSearchString(inString) {
@@ -40,6 +43,7 @@ class SearchBar extends Component {
 			...this.state,
 			searchString: this.state.preSearchString,
 		});
+		//window.dispatchEvent(highlightEvent);
 	}
 
 	searchFromLink(inString) {
@@ -49,6 +53,7 @@ class SearchBar extends Component {
 			preSearchString: inString,
 			searchString: inString,
 		});
+		//window.dispatchEvent(highlightEvent);
 	}
 
 	componentDidMount() {
