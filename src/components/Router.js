@@ -12,10 +12,19 @@ class Router extends Component {
 	}
 
 	urlCheck() {
-		this.setState({
-			...this.state,
-			curPage: window.location.pathname,
-		});
+		const urlSearchParams = new URLSearchParams(window.location.search)
+		if (urlSearchParams.has("page")) {
+			this.setState({
+				...this.state,
+				curPage: urlSearchParams.get("page"),
+			});
+		} else {
+			this.setState({
+				...this.state,
+				curPage: "",
+			});
+		}
+		
 	}
 
 	componentDidMount() {
@@ -25,9 +34,9 @@ class Router extends Component {
 
   	render() {
   		switch(this.state.curPage) {
-  			case "/MLP-Fim-Episode-Transcript-Search":
+  			case "":
   				return (<SearchBar/>);
-  			case "/MLP-Fim-Episode-Transcript-Search/help":
+  			case "help":
   				return (<HelpInfo/>);
   			default:
   				return (
@@ -37,8 +46,6 @@ class Router extends Component {
   						<p>We couldn't find that page! Maybe a cragadile ate it. Or a timberwolf. Or a—</p>
   						<p>Regardless, check your url. You can click the page title to return to safer ground. Or, if you're seeing this page and you really don't think you should be, open an issue on our <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search/issues">Github.</a></p>
   					</div>
-
-
   				);
   		}
 	}
