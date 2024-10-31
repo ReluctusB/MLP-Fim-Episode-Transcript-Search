@@ -148,6 +148,11 @@ header {
 footer {
 	padding: 0 2rem 0 2rem;
 	font-size: 1rem;
+
+	a {
+		text-decoration: underline;
+		font-weight: normal;
+	}
 }
 
 hr {
@@ -293,6 +298,27 @@ svg {
 			position: relative;
 			top: 2.5px;
 		}
+	}
+}
+
+.help-info {
+	padding: 2rem;
+	padding-top: 0;
+
+	h3, h2 {
+		margin-bottom: .5rem;
+	}
+
+	p, ul {
+		margin-top: .2rem;
+	}
+
+	li {
+		font-family: #{$font-family-b};
+	}
+
+	a {
+		text-decoration: underline;
 	}
 }
 
