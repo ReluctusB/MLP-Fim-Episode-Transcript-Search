@@ -12,7 +12,6 @@ class Router extends Component {
 	}
 
 	urlCheck() {
-		console.log(window.location.pathname)
 		this.setState({
 			...this.state,
 			curPage: window.location.pathname,
