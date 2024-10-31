@@ -1,6 +1,14 @@
 # MLP: FiM Episode Transcript Search
 
-What it says on the tin. Search MLP episode transcripts with ease. Supports RegEx! Transcript data acquired from [here](https://www.kaggle.com/jwiens/my-little-pony-friendship-is-magic-episode-data/version/1).
+What it says on the tin. Search MLP episode transcripts with ease. Supports RegEx! Transcript data acquired from [here](https://www.kaggle.com/jwiens/my-little-pony-friendship-is-magic-episode-data/version/1). Additional transcript data and corrections done by the dev.
+
+## Development
+
+This website runs on [Node.js](https://nodejs.org/en) and requires [Yarn](https://yarnpkg.com/).
+
+To run a local version of the tool, navigate to the root in your terminal and run `yarn run start`.
+
+The icons used are from [Bootstrap Icons](https://icons.getbootstrap.com/). Please stick with this icon set if possible.
 
 ## Search Help
 

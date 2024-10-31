@@ -1,6 +1,6 @@
 {
   "name": "mlp-database-search",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "homepage": "http://ReluctusB.github.io/MLP-Fim-Episode-Transcript-Search",
   "dependencies": {
