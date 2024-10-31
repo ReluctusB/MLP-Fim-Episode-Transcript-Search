@@ -27,6 +27,7 @@ $text-colour: #bbbbbb;*/
     --aside-text-colour: #bbbbbb;
     --hr-colour: #bbbbbb;
     --link-hover-colour: lightgray;
+    --highlight-colour: lightgray;
 }
 
 html[data-theme='light'] {
@@ -47,6 +48,7 @@ html[data-theme='light'] {
     --aside-text-colour: #ede8ed;
     --hr-colour: #cb502d;
     --link-hover-colour: #e68c40;
+    --highlight-colour: #cb502d;
 
 }
 
@@ -67,6 +69,7 @@ html[data-theme='dark'] {
     --aside-text-colour: #eeeeee;
     --hr-colour: #6888f7;
     --link-hover-colour: #4a53bc;
+    --highlight-colour: #6888f7;
   }
 
 body, #root, .App {
@@ -233,8 +236,11 @@ a {
 
 	.line-box {
 		max-width: 90%;
-		margin: 0 auto 2rem auto;
+		margin: 0 auto 0 auto;
+		padding: 1rem 0 1rem 0;
 		font-size: 1.1rem;
+		border-radius: 10px;
+
 		& > div {
 			margin: .3rem 0 0 0;
 		}
@@ -257,6 +263,12 @@ a {
 			.bi-copy {
 				padding-left: 4px;
 			}
+		}
+
+		&.highlighted {
+			border-top: 3px solid var(--highlight-colour);
+			border-bottom: 3px solid var(--highlight-colour);
+
 		}
 	}
 }

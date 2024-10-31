@@ -15,7 +15,7 @@ class SearchBar extends Component {
 	}
 
 	componentDidMount() {
-		const urlSearchParams = new URLSearchParams(window.location.search)
+		const urlSearchParams = new URLSearchParams(window.location.search);
 		if (urlSearchParams.has("search")) {
 			this.setState({
 				...this.state,
