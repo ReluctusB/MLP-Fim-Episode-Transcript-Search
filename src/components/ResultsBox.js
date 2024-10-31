@@ -56,7 +56,8 @@ class ResultsBox extends Component {
 						speaker: lines.character,
 						episode: episodeDatabase[prop].title,
 						eNumber: episodeDatabase[prop].number_in_season ? episodeDatabase[prop].number_in_season : "N/A",
-						season: episodeDatabase[prop].season ? episodeDatabase[prop].season : "N/A"
+						season: episodeDatabase[prop].season ? episodeDatabase[prop].season : "N/A",
+						link: episodeDatabase[prop].transcript_url,
 					})
 				}
 			})
@@ -91,9 +92,9 @@ class ResultsBox extends Component {
 					{
 						this.state.matches.map((line, index) => (
 							<div key={index} className="line-box">
-								<b>{line.speaker}</b>: {line.line} 
+								<a href="#" onClick={() => this.props.searchFromLink("{character: " + line.speaker + "}")}>{line.speaker}</a>: {line.line} 
 								<div >
-									- <small>{line.episode} | Season {line.season} Episode {line.eNumber}</small> -
+									- <small><a href="#" onClick={() => this.props.searchFromLink("{episode: " + line.episode + "}")}>{line.episode}</a> | Season {line.season} Episode {line.eNumber}</small> -
 								</div>
 							</div>
 						))

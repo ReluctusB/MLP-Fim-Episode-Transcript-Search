@@ -25,6 +25,8 @@ $text-colour: #bbbbbb;*/
     --head-text-colour: #bbbbbb;
     --aside-colour: #333333;
     --aside-text-colour: #bbbbbb;
+    --hr-colour: #bbbbbb;
+    --link-hover-colour: lightgray;
 }
 
 html[data-theme='light'] {
@@ -43,6 +45,8 @@ html[data-theme='light'] {
     --head-text-colour: #000000;
     --aside-colour: #cb502d;
     --aside-text-colour: #ede8ed;
+    --hr-colour: #cb502d;
+    --link-hover-colour: #e68c40;
 
 }
 
@@ -61,6 +65,8 @@ html[data-theme='dark'] {
     --head-text-colour: #eeeeee;
     --aside-colour: #6888f7;
     --aside-text-colour: #eeeeee;
+    --hr-colour: #6888f7;
+    --link-hover-colour: #4a53bc;
   }
 
 body, #root, .App {
@@ -69,6 +75,7 @@ body, #root, .App {
 	margin: 0;
 	font-family: #{$font-family};
 	font-size: 1.2rem;
+	min-height: 100vh;
 }
 
 body {
@@ -83,7 +90,7 @@ body, html {
 
 .App {
 	overflow: visible;
-	min-height: 100vh;
+	
 	width: 80%;
 	max-width: 80rem;
 	margin: 0 auto;
@@ -92,7 +99,6 @@ body, html {
 	display: -webkit-flexbox;
     display: -webkit-flex;
     display: flex;
-    min-height: 95vh;
     -webkit-flex-direction: column;
     flex-direction: column;
 }
@@ -109,7 +115,18 @@ header {
 		padding-right: 1rem;
 		font-family: #{$font-family};
 		margin-top: 1rem;
-		color: var(--head-text-colour)
+		color: var(--head-text-colour);
+
+		a {
+			text-decoration: none;
+			&:hover {
+			  text-decoration: none;
+			}
+
+			&:active {
+			  text-decoration: none;
+			}
+		}
 	}
 
 	aside {
@@ -133,7 +150,9 @@ footer {
 	font-size: 1rem;
 }
 
-
+hr {
+	border: 1px solid var(--hr-colour);
+}
 
 p {
 	font-family: #{$font-family-b};
@@ -144,23 +163,27 @@ small {
 		font-size: 1.2rem;
 	}
 
-a:link {
-  color: inherit;
-}
+a {
+	text-decoration: none;
+	font-weight: bold;
 
-/* visited link */
-a:visited {
-  color: inherit;
-}
+	&:link {
+	  color: inherit;
+	}
 
-/* mouse over link */
-a:hover {
-  color: lightgray;
-}
+	&:visited {
+	  color: inherit;
+	}
 
-/* selected link */
-a:active {
-  color: var(--text-colour);
+	&:hover {
+	  color: var(--link-hover-colour);
+	  text-decoration: underline;
+	}
+
+	&:active {
+	  color: var(--text-colour);
+	  text-decoration: underline;
+	}
 }
 
 .search-bar {
@@ -194,11 +217,10 @@ a:active {
 		border-radius: 10px;
 		border: 2px solid var(--button-border-colour);
 		font-family: #{$font-family-b};
+		&:hover {
+			color: var(--link-hover-colour);
+		}
 	}
-}
-
-hr {
-	border: 1px solid var(--text-colour);
 }
 
 .results-box {
@@ -223,6 +245,10 @@ hr {
 		cursor: pointer;
 		border-color: var(--box-colour);
 		border-radius: 5px;
+		width: 20px;
+		&:hover {
+			color: var(--link-hover-colour);
+		}
 	}
 }
 
@@ -244,7 +270,7 @@ hr {
 
 svg {
 	position: relative;
-	top: 2px;
+	top: 3px;
 }
 
 #to-top {

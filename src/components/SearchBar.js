@@ -11,6 +11,7 @@ class SearchBar extends Component {
 		}
 		this.setPreSearchString = this.setPreSearchString.bind(this);
 		this.setSearchString = this.setSearchString.bind(this);
+		this.searchFromLink = this.searchFromLink.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,6 +41,14 @@ class SearchBar extends Component {
 		});
 	}
 
+	searchFromLink(inString) {
+		this.setState({
+			...this.state,
+			preSearchString: inString,
+			searchString: inString,
+		});
+	}
+
 	render() {
 		return (
 			<div  className="search-bar">
@@ -59,6 +68,7 @@ class SearchBar extends Component {
 
 				<ResultsBox
 					searchString = {this.state.searchString}
+					searchFromLink = {this.searchFromLink}
 				/>
 			</div>
 		);
