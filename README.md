@@ -8,6 +8,8 @@ This website runs on [Node.js](https://nodejs.org/en) and requires [Yarn](https:
 
 To run a local version of the tool, navigate to the root in your terminal and run `yarn run start`.
 
+The icons used are from [Bootstrap Icons](https://icons.getbootstrap.com/). Please stick with this icon set if possible.
+
 ## Search Help
 
 To search by character speaking, use `{character:character name}`:
