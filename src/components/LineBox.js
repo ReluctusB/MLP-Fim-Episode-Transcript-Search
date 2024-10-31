@@ -15,7 +15,6 @@ class LineBox extends Component {
 	}
 
 	highlightCheck() {
-		console.log("HIGHLIGHTING");
 		let urlSearchParams = new URLSearchParams(window.location.search);
 		if (urlSearchParams.has("scroll_to")) {
 			this.setState({
@@ -33,12 +32,24 @@ class LineBox extends Component {
 		urlSearchParams.set("scroll_to", this.props.index);
 		window.history.replaceState({scrollTo: this.props.index}, null, "?" + urlSearchParams.toString());
 		navigator.clipboard.writeText(window.location);
+		const copyLinkEvent = new CustomEvent("customcopy", {
+			detail: {
+				copyType: "Link"
+			}
+		});
+		window.dispatchEvent(copyLinkEvent);
 		window.dispatchEvent(highlightEvent);
 	}
 
 	copyLine() {
 		let lineCopy = this.props.line.speaker + ": " + this.props.line.line;
 		navigator.clipboard.writeText(lineCopy);
+		const copyLineEvent = new CustomEvent("customcopy", {
+			detail: {
+				copyType: "Line"
+			}
+		});
+		window.dispatchEvent(copyLineEvent);
 	}
 
 	componentDidMount() {

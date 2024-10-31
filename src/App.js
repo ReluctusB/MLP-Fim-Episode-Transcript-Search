@@ -2,6 +2,7 @@ import React from 'react';
 import Router from  "./components/Router";
 import StyleSwitch from "./components/StyleSwitch";
 import ToTop from "./components/ToTop";
+import CopyNotif from "./components/CopyNotif";
 import './scss/index.scss';
 
 
@@ -29,6 +30,7 @@ function App() {
       </footer>
 
       <ToTop />
+      <CopyNotif />
     </div>
   );
 }

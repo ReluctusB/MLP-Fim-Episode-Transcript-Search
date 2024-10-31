@@ -333,6 +333,31 @@ svg {
 	}
 }
 
+#copy-notif {
+	position: fixed;
+	bottom: -3rem;
+	left: 50%;
+	transform: translate(-50%, 0);
+	padding: .5rem 2rem;
+	background-color: var(--aside-colour);
+	color: var(--aside-text-colour);
+	border-radius: 10px 10px 0 0;
+	border: 2px solid var(--border-colour);
+	border-bottom: none;
+	height: 1.5rem;
+	font-size: 1.3rem;
+	transition: bottom .5s;
+
+	&.shown {
+		bottom: 0;
+	}
+
+	p {
+		font-family: #{$font-family-b};
+		margin: 0;
+	}
+}
+
 .page {
 	padding: 2rem;
 	padding-top: 0;
