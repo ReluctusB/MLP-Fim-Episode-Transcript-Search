@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/MLP-Fim-Episode-Transcript-Search/static/css/main.84d20475.css",
-    "main.js": "/MLP-Fim-Episode-Transcript-Search/static/js/main.8781e5c4.js",
+    "main.css": "/MLP-Fim-Episode-Transcript-Search/static/css/main.59afa2a5.css",
+    "main.js": "/MLP-Fim-Episode-Transcript-Search/static/js/main.6db48461.js",
     "static/js/453.a58461df.chunk.js": "/MLP-Fim-Episode-Transcript-Search/static/js/453.a58461df.chunk.js",
     "index.html": "/MLP-Fim-Episode-Transcript-Search/index.html",
-    "main.84d20475.css.map": "/MLP-Fim-Episode-Transcript-Search/static/css/main.84d20475.css.map",
-    "main.8781e5c4.js.map": "/MLP-Fim-Episode-Transcript-Search/static/js/main.8781e5c4.js.map",
+    "main.59afa2a5.css.map": "/MLP-Fim-Episode-Transcript-Search/static/css/main.59afa2a5.css.map",
+    "main.6db48461.js.map": "/MLP-Fim-Episode-Transcript-Search/static/js/main.6db48461.js.map",
     "453.a58461df.chunk.js.map": "/MLP-Fim-Episode-Transcript-Search/static/js/453.a58461df.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.84d20475.css",
-    "static/js/main.8781e5c4.js"
+    "static/css/main.59afa2a5.css",
+    "static/js/main.6db48461.js"
   ]
 }
