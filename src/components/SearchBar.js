@@ -42,6 +42,7 @@ class SearchBar extends Component {
 	}
 
 	searchFromLink(inString) {
+		window.history.replaceState(null, null, "?search=" + encodeURIComponent(inString));
 		this.setState({
 			...this.state,
 			preSearchString: inString,

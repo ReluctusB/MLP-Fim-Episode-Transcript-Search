@@ -287,8 +287,12 @@ svg {
 		cursor: pointer;
 		color: var(--button-colour);
 		background-color: var(--border-colour);
-		border-radius: 7px;
-		padding: 0 2px;
+		border-radius: 5px;
+		padding: 0 3px;
+		svg {
+			position: relative;
+			top: 2.5px;
+		}
 	}
 }
 
