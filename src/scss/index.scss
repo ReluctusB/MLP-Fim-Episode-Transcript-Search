@@ -249,6 +249,8 @@ a {
 			all: unset;
 			padding: .1rem .2rem;
 			cursor: pointer;
+			text-decoration: none;
+	font-weight: bold;
 
 			&:hover {
 				color: var(--link-hover-colour);

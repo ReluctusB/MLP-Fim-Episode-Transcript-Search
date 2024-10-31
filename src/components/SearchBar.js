@@ -9,12 +9,13 @@ class SearchBar extends Component {
 			preSearchString: "",
 			searchString: "",
 		}
+		this.pullFromURL = this.pullFromURL.bind(this);
 		this.setPreSearchString = this.setPreSearchString.bind(this);
 		this.setSearchString = this.setSearchString.bind(this);
 		this.searchFromLink = this.searchFromLink.bind(this);
 	}
 
-	componentDidMount() {
+	pullFromURL() {
 		const urlSearchParams = new URLSearchParams(window.location.search);
 		if (urlSearchParams.has("search")) {
 			this.setState({
@@ -34,7 +35,7 @@ class SearchBar extends Component {
 
 	setSearchString(e) {
 		e.preventDefault();
-		window.history.replaceState(null, null, "?search=" + encodeURIComponent(this.state.preSearchString));
+		window.history.pushState(null, null, "?search=" + encodeURIComponent(this.state.preSearchString));
 		this.setState({
 			...this.state,
 			searchString: this.state.preSearchString,
@@ -42,12 +43,17 @@ class SearchBar extends Component {
 	}
 
 	searchFromLink(inString) {
-		window.history.replaceState(null, null, "?search=" + encodeURIComponent(inString));
+		window.history.pushState(null, null, "?search=" + encodeURIComponent(inString));
 		this.setState({
 			...this.state,
 			preSearchString: inString,
 			searchString: inString,
 		});
+	}
+
+	componentDidMount() {
+		window.addEventListener('popstate', this.pullFromURL);
+		this.pullFromURL();
 	}
 
 	render() {
