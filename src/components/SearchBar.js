@@ -59,6 +59,7 @@ class SearchBar extends Component {
 						placeholder="Search Transcripts" 
 						value={this.state.preSearchString}
 						onInput={e => this.setPreSearchString(e.target.value)}
+						name="searchbar"
 					/>
 					<button type="submit" title="Search!">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-search-heart-fill" viewBox="0 0 16 16">
