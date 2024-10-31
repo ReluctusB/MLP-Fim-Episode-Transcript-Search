@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LineBox from "./LineBox"
 
 import episodeDatabase from "../assets/episodes.json"
 
@@ -91,12 +92,12 @@ class ResultsBox extends Component {
 				<div>
 					{
 						this.state.matches.map((line, index) => (
-							<div key={index} className="line-box">
-								<a href="#" onClick={() => this.props.searchFromLink("{character: " + line.speaker + "}")}>{line.speaker}</a>: {line.line} 
-								<div >
-									- <small><a href="#" onClick={() => this.props.searchFromLink("{episode: " + line.episode + "}")}>{line.episode}</a> | Season {line.season} Episode {line.eNumber}</small> -
-								</div>
-							</div>
+							<LineBox 
+								key = {index}
+								line={line} 
+								index={index}
+								searchFromLink = {this.props.searchFromLink}
+							/>
 						))
 					}
 					

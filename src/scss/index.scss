@@ -238,6 +238,26 @@ a {
 		& > div {
 			margin: .3rem 0 0 0;
 		}
+
+		button {
+			all: unset;
+			padding: .1rem .2rem;
+			cursor: pointer;
+
+			&:hover {
+				color: var(--link-hover-colour);
+			}
+
+			.bi-link-45deg {
+				position: relative;
+				top: 5px;
+				padding-left: 1px;
+			}
+
+			.bi-copy {
+				padding-left: 4px;
+			}
+		}
 	}
 }
 
