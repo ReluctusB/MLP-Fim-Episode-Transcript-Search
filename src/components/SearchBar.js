@@ -9,13 +9,14 @@ class SearchBar extends Component {
 			preSearchString: "",
 			searchString: "",
 		}
+		this.pullFromURL = this.pullFromURL.bind(this);
 		this.setPreSearchString = this.setPreSearchString.bind(this);
 		this.setSearchString = this.setSearchString.bind(this);
 		this.searchFromLink = this.searchFromLink.bind(this);
 	}
 
-	componentDidMount() {
-		const urlSearchParams = new URLSearchParams(window.location.search)
+	pullFromURL() {
+		const urlSearchParams = new URLSearchParams(window.location.search);
 		if (urlSearchParams.has("search")) {
 			this.setState({
 				...this.state,
@@ -34,20 +35,35 @@ class SearchBar extends Component {
 
 	setSearchString(e) {
 		e.preventDefault();
-		window.history.replaceState(null, null, "?search=" + encodeURIComponent(this.state.preSearchString));
+		window.history.pushState(null, null, "?search=" + encodeURIComponent(this.state.preSearchString));
 		this.setState({
 			...this.state,
 			searchString: this.state.preSearchString,
 		});
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: "instant",
+		});
 	}
 
 	searchFromLink(inString) {
-		window.history.replaceState(null, null, "?search=" + encodeURIComponent(inString));
+		window.history.pushState(null, null, "?search=" + encodeURIComponent(inString));
 		this.setState({
 			...this.state,
 			preSearchString: inString,
 			searchString: inString,
 		});
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: "instant",
+		});
+	}
+
+	componentDidMount() {
+		window.addEventListener('popstate', this.pullFromURL);
+		this.pullFromURL();
 	}
 
 	render() {
