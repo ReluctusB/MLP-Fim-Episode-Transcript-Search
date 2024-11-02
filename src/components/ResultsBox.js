@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LineBox from "./LineBox"
+import LineBox from "./LineBox";
+import ErrorBox from "./ErrorBox";
 
 import episodeDatabase from "../assets/episodes.json"
 
@@ -9,7 +10,10 @@ class ResultsBox extends Component {
 		super(props);
 		this.state = {
 			matches: [],
-			errorMsg: "",
+			errorMsg: {
+				msg: "",
+				link: "",
+			},
 		}
 		this.searchDb = this.searchDb.bind(this);
 		this.clearMatches = this.clearMatches.bind(this);
@@ -55,7 +59,10 @@ class ResultsBox extends Component {
 			searchRegex = new RegExp(checkString, "i");
 		} catch(err) {
 			console.error(err);
-			const errMsg = "Error: Regular expression in search body was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+			const errMsg = {
+				msg: "Regular expression in search body was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
+				link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+			}
 			this.setState({
 				...this.state,
 				matches: [],
@@ -71,7 +78,10 @@ class ResultsBox extends Component {
 				charRegex = new RegExp(charString, "i");
 			} catch(err) {
 				console.error(err);
-				const errMsg = "Error: Regular expression in character tag was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+				const errMsg = {
+					msg: "Regular expression in character parameter was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
+					link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+				}
 				this.setState({
 					...this.state,
 					matches: [],
@@ -88,7 +98,10 @@ class ResultsBox extends Component {
 				epRegex = new RegExp(epString, "i");
 			} catch(err) {
 				console.error(err);
-				const errMsg = "Error: Regular expression in episode tag was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+				const errMsg = {
+					msg: "Regular expression in episode parameter was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
+					link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+				}
 				this.setState({
 					...this.state,
 					matches: [],
@@ -128,7 +141,10 @@ class ResultsBox extends Component {
 		this.setState({
 			...this.state,
 			matches: matchArray,
-			errorMsg: "",
+			errorMsg: {
+				msg: "",
+				link: "",
+			},
 		});
 	}
 
@@ -147,9 +163,6 @@ class ResultsBox extends Component {
 
 	render() {
 		let errDiv;
-		if (this.state.errorMsg) {
-			errDiv = <div className="err-out">{this.state.errorMsg}</div>
-		}
 
 		return (
 			<div  className="results-box">
@@ -177,7 +190,10 @@ class ResultsBox extends Component {
 					
 				</div>
 
-				{errDiv}
+				<ErrorBox 
+				msg={this.state.errorMsg.msg}
+				link = {this.state.errorMsg.link}
+				/>
 				
 			</div>
 		);

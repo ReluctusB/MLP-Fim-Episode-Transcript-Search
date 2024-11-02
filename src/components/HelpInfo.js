@@ -19,11 +19,11 @@ class HelpInfo extends Component {
 
   				<hr/>
 
-  				<h2>Regular Expressions</h2>
+  				<h2 id="regex">Regular Expressions</h2>
   				<p>All search fields (including parameters) support Regular Expressions. Regular Expressions are a powerful way to search through text. You can learn more about them <a href="https://www.regular-expressions.info/">here</a>.</p>
   				<p>As an example, if you wanted to search for "Tom" and only "Tom" without returning results for "Tomorrow", you could search for <code>\bTom\b</code>.</p>
-
-  				<p>However, because the ability to search for a specific word is a common use-case of this tool, you can also use double quotes in place of <code>\b</code>. The end result is exactly the same. If you actually want to search <i>for</i> double quotes, you can escape them with a backslash: <code>\"</code></p>
+				<p>However, because the ability to search for a specific word is a common use-case of this tool, you can also use double quotes in place of <code>\b</code>. The end result is exactly the same. If you actually want to search <i>for</i> double quotes, you can escape them with a backslash: <code>\"</code></p>
+				<p>If you are getting a "Regular expression was malformed" error, it means that whatever you've entered into the specified search field is an invalid regular expression. This usually means that you have an extra or unpaired parenthesis or bracket somewhere. Please note that if you are trying to search for parentheses or brackets or any other special regular expression character, you will need to escape them by putting a backslash in front of them, like so: <code>\(</code></p>
 
   				<hr/>
 
