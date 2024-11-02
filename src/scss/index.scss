@@ -390,6 +390,14 @@ svg {
 	}
 }
 
+.err-out {
+	padding: .5rem;
+	color: black;
+	background-color: #ffcccc;
+	border: 2px solid #cc0000;
+	border-radius: 10px;
+}
+
 @media screen and (max-width: 840px) {
 	header {
 		h1 {

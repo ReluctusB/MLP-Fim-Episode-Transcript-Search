@@ -8,7 +8,8 @@ class ResultsBox extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			matches: []
+			matches: [],
+			errorMsg: "",
 		}
 		this.searchDb = this.searchDb.bind(this);
 		this.clearMatches = this.clearMatches.bind(this);
@@ -46,23 +47,68 @@ class ResultsBox extends Component {
 			}
 		}
 
-
 		checkString = checkString.trim();
 
-		let searchRegex = new RegExp(checkString, "i");
+		// Main search body regex
+		let searchRegex;
+		try {
+			searchRegex = new RegExp(checkString, "i");
+		} catch(err) {
+			console.error(err);
+			const errMsg = "Error: Regular expression in search body was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+			this.setState({
+				...this.state,
+				matches: [],
+				errorMsg: errMsg,
+			});
+			return;
+		}
+
+		// Character parameter regex
+		let charRegex;
+		if (charString) {
+			try {
+				charRegex = new RegExp(charString, "i");
+			} catch(err) {
+				console.error(err);
+				const errMsg = "Error: Regular expression in character tag was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+				this.setState({
+					...this.state,
+					matches: [],
+					errorMsg: errMsg,
+				});
+				return;
+			}
+		}
+
+		// Episode parameter regex
+		let epRegex;
+		if(epString) {
+			try {
+				epRegex = new RegExp(epString, "i");
+			} catch(err) {
+				console.error(err);
+				const errMsg = "Error: Regular expression in episode tag was malformed! Check for unclosed brackets or parentheses, or look at the console for details!"
+				this.setState({
+					...this.state,
+					matches: [],
+					errorMsg: errMsg,
+				});
+				return;
+			}
+		}
+		
 		let matchArray = []
 
 		for (const prop in episodeDatabase) {
 			episodeDatabase[prop].transcript.forEach(lines => {
 				if (searchRegex.test(lines.line)) {
 					if (charString) {
-						let charRegex = new RegExp(charString, "i");
 						if (!charRegex.test(lines.character)) {
 							return
 						}
 					}
 					if (epString) {
-						let epRegex = new RegExp(epString, "i");
 						if (!epRegex.test(episodeDatabase[prop].title)) {
 							return
 						}
@@ -81,7 +127,8 @@ class ResultsBox extends Component {
 
 		this.setState({
 			...this.state,
-			matches: matchArray
+			matches: matchArray,
+			errorMsg: "",
 		});
 	}
 
@@ -99,6 +146,11 @@ class ResultsBox extends Component {
 	}
 
 	render() {
+		let errDiv;
+		if (this.state.errorMsg) {
+			errDiv = <div className="err-out">{this.state.errorMsg}</div>
+		}
+
 		return (
 			<div  className="results-box">
 				<p>Searching for: {this.props.searchString}</p>
@@ -124,6 +176,9 @@ class ResultsBox extends Component {
 					}
 					
 				</div>
+
+				{errDiv}
+				
 			</div>
 		);
 	}
