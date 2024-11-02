@@ -10,13 +10,28 @@ class ResultsBox extends Component {
 		this.state = {
 			matches: []
 		}
+		this.searchDb = this.searchDb.bind(this);
+		this.clearMatches = this.clearMatches.bind(this);
 	}
 
 	searchDb() {
 		if (!this.props.searchString) {
+			this.clearMatches();
 			return;
 		}
+		
 		let checkString = this.props.searchString.trim();
+
+		// Make sure search contains a character, not including an unescaped doublequote.
+		let checkRealSearchRegex = /[^"]/;
+		if (!checkRealSearchRegex.test(checkString)) {
+			this.clearMatches();
+			return;
+		}
+
+		// Swap unescaped quotes for \b 
+		checkString = checkString.replace(/(?<!\\)"/gi, "\\b")
+
 		let charString = null;
 		let epString = null;
 
@@ -67,6 +82,13 @@ class ResultsBox extends Component {
 		this.setState({
 			...this.state,
 			matches: matchArray
+		});
+	}
+
+	clearMatches() {
+		this.setState({
+			...this.state,
+			matches: []
 		});
 	}
 
