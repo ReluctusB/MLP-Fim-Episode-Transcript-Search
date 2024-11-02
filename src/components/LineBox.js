@@ -79,11 +79,15 @@ class LineBox extends Component {
 	}
 
 	render() {
+		let seasonEpisodeNums = "";
+		if (this.props.line.season !== "N/A" && this.props.line.eNumber !== "N/A") {
+			seasonEpisodeNums = " S" + this.props.line.season + " E" + this.props.line.eNumber + " |";
+		}
 		return (
 			<div ref={this.eleRef} className={this.state.highlighted ? "line-box highlighted" : "line-box"}>
 				<button onClick={() => this.props.searchFromLink("{character: " + this.props.line.speaker + "}")}>{this.props.line.speaker}</button>: {this.props.line.line} 
 				<div >
-					- <small><button href="#" onClick={() => this.props.searchFromLink("{episode: " + this.props.line.episode + "}")}>{this.props.line.episode}</button> | S{this.props.line.season} E{this.props.line.eNumber} | 
+					- <small><button href="#" onClick={() => this.props.searchFromLink("{episode: " + this.props.line.episode + "}")}>{this.props.line.episode}</button> |{seasonEpisodeNums}
 						<button title="Copy Link to This Line" onClick={this.linkTo}>
 							<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" className="bi bi-link-45deg" viewBox="0 0 16 16">
 								<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>

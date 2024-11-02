@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
 
 class HelpInfo extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
   		return(
   			<div className="help-info page">
   				<hr/>
   				<h2>Search Parameters</h2>
-  				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: &#123; &#125;. These can be combined with regular searches and each other.</p>
+  				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: <code>&#123; &#125;</code>. These can be combined with regular searches and each other.</p>
 
   				<h3>Character</h3>
-  				<p>You can search by character using &#123;character: character name&#125;. For example, to search for lines said by Rainbow Dash, you would search &#123;character: Rainbow Dash&#125;. You can also click on a character's name to search their lines.</p>
+  				<p>You can search by character using <code>&#123;character: character name&#125;</code>. For example, to search for lines said by Rainbow Dash, you would search <code>&#123;character: Rainbow Dash&#125;</code>. You can also click on a character's name to search their lines.</p>
 
   				<h3>Episode</h3>
-  				<p>You can search by episode title using &#123;episode: episode name&#125;. For example, to search for lines in Fall Weather Friends, you would search &#123;episode: Fall Weather Friends&#125;. You can also click on an episode title to search its lines.</p>
+  				<p>You can search by episode title using <code>&#123;episode: episode name&#125;</code>. For example, to search for lines in Fall Weather Friends, you would search <code>&#123;episode: Fall Weather Friends&#125;</code>. You can also click on an episode title to search its lines.</p>
 
   				<h3>Combining Search Parameters</h3>
-  				<p>Parameters can be combined and added to normal searches. For example, the search "&#123;episode: Fall Weather Friends&#125; &#123;character: Rainbow Dash&#125; Applejack" will return all lines in Fall Weather Friends spoken by Rainbow Dash containing the word "Applejack".</p>
+  				<p>Parameters can be combined and added to normal searches. For example, the search <code>&#123;episode: Fall Weather Friends&#125; &#123;character: Rainbow Dash&#125; Applejack</code> will return all lines in Fall Weather Friends spoken by Rainbow Dash containing the word "Applejack".</p>
 
   				<hr/>
 
   				<h2>Regular Expressions</h2>
   				<p>All search fields (including parameters) support Regular Expressions. Regular Expressions are a powerful way to search through text. You can learn more about them <a href="https://www.regular-expressions.info/">here</a>.</p>
-  				<p>As an example, if you wanted to search for "Tom" and only "Tom" without returning results for "Tomorrow", you could search for "\bTom\b".</p>
+  				<p>As an example, if you wanted to search for "Tom" and only "Tom" without returning results for "Tomorrow", you could search for <code>\bTom\b</code>.</p>
+
+  				<p>However, because the ability to search for a specific word is a common use-case of this tool, you can also use double quotes in place of <code>\b</code>. The end result is exactly the same. If you actually want to search <i>for</i> double quotes, you can escape them with a backslash: <code>\"</code></p>
 
   				<hr/>
 
