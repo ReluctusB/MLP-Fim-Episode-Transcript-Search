@@ -1,13 +1,26 @@
 use ordered_float::OrderedFloat;
 use regex::Regex;
-use serde::Deserialize;
-use std::{collections::HashMap, fs::File, io::BufReader};
+use serde::{Serialize, Deserialize};
+use serde_json::Error;
+use std::{collections::HashMap, fs, fs::File, io::BufReader};
+
+// Top n quotes from each episode to include in output
+const TOP_N: usize = 30;
+// Path to transcript data
+const TRANSCRIPT_FILEPATH: &str = "../src/assets/episodes.json";
+// Path to output file
+const OUTPUT_FILEPATH: &str = "../src/assets/game_tf_idf.json";
 
 // types for the episodes.json, only including fields we care about
 type Series = HashMap<String, Episode>;
 
 #[derive(Clone, Deserialize)]
 struct Episode {
+    title: String,
+    #[serde(default)]
+    number_in_season: i32,
+    #[serde(default)]
+    season: i32,
     #[serde(rename = "transcript")]
     lines: Vec<Line>,
 }
@@ -32,8 +45,8 @@ macro_rules! timed {
 
 fn main() {
     // load transcripts
-    let mut transcripts: HashMap<String, Episode> = timed!("load transcripts", {
-        let file = File::open("../src/assets/episodes.json").unwrap();
+    let mut transcripts: HashMap<String, Episode> = timed!("Load transcripts", {
+        let file = File::open(TRANSCRIPT_FILEPATH).expect("Couldn't open episodes.json!");
         let buf = BufReader::new(file);
 
         serde_json::from_reader(buf).unwrap()
@@ -46,23 +59,39 @@ fn main() {
         }
     }
 
-    // how many quotes to show and a range of episodes to get quotes from
-    let top_n = 3;
-    let range = 1..=10;
-
     println!("=================================================");
-    let corpus = timed!("process series corpus", {
+    let corpus = timed!("Process series corpus", {
         let mut corpus = SeriesCorpus::default();
         corpus.process(transcripts);
         corpus
     });
 
+    /*
     for i in range {
         println!("=================================================");
         for line in corpus.summarize(i.to_string(), top_n) {
             println!("{line}");
         }
     }
+    */
+    println!("=================================================");
+    let output_json = timed!("Serialize tf_idf episode data", {
+        match corpus.serialize(TOP_N) {
+            Ok(json) => json,
+            Err(e) => panic!("Couldn't serialize tf_idf episode data! Error: {e:?}")
+        }
+    });
+
+    println!("=================================================");
+    timed!("Write output file", {
+        fs::write(OUTPUT_FILEPATH, output_json).expect("Couldn't write to game_tf_idf.json!");
+    });
+    
+    println!("Written to {OUTPUT_FILEPATH:?}");
+
+    println!("=================================================");
+    println!("Done!");
+
 }
 
 #[derive(Default)]
@@ -73,10 +102,32 @@ struct SeriesCorpus {
 
 #[derive(Clone, Default)]
 struct EpisodeDocument {
+    title: String,
+    number_in_season: i32,
+    season: i32,
     original: Vec<String>,
     terms: Vec<Vec<String>>,
     term_occurrences: HashMap<String, usize>,
     tf_idf: HashMap<String, f64>,
+}
+
+#[derive(Clone, Default, Serialize)]
+struct OutputDocument {
+    seasons: HashMap<i32, Vec<OutputEpisode>>,
+}
+
+#[derive(Clone, Default, Serialize)]
+struct OutputEpisode {
+    title: String,
+    number_in_season: i32,
+    season: i32,
+    lines: Vec<OutputLine>,
+}
+
+#[derive(Clone, Default, Serialize)]
+struct OutputLine {
+    line: String,
+    score: f64
 }
 
 impl SeriesCorpus {
@@ -117,6 +168,9 @@ impl SeriesCorpus {
             self.documents.insert(
                 id.clone(),
                 EpisodeDocument {
+                    title: episode.title,
+                    number_in_season: episode.number_in_season,
+                    season: episode.season,
                     original,
                     terms: episode_terms,
                     term_occurrences,
@@ -142,36 +196,63 @@ impl SeriesCorpus {
         }
     }
 
-    fn summarize(&self, id: String, top_n: usize) -> Vec<String> {
-        let document = self.documents.get(&id).cloned().unwrap();
-        let mut scores = Vec::with_capacity(document.terms.len());
+    fn serialize(&self, top_n: usize) -> Result<String, Error> {
+        let mut output_document: OutputDocument = Default::default();
 
-        // for each line in the episode document...
-        for (i, terms) in document.terms.iter().enumerate() {
-            // sum the tf-idf values for each term
-            let mut total_score: f64 = terms
-                .iter()
-                .map(|term| *document.tf_idf.get(term).unwrap())
-                .sum();
+        for (_key, document) in self.documents.clone() {
+            let mut output_episode = OutputEpisode {
+                title: document.title,
+                number_in_season: document.number_in_season,
+                season: document.season,
+                ..Default::default()
+            };
+            let mut scores = Vec::with_capacity(document.terms.len());
 
-            // zero out the score for lines <20 or >120 characters, excluding the speaking character text
-            if document.original[i].split_once(": ").unwrap().1.len() < 20
-                || document.original[i].split_once(": ").unwrap().1.len() > 120
-            {
-                total_score = 0.0;
+            // for each line in the episode document...
+            for (i, terms) in document.terms.iter().enumerate() {
+                // sum the tf-idf values for each term
+                let mut total_score: f64 = terms
+                    .iter()
+                    .map(|term| *document.tf_idf.get(term).unwrap())
+                    .sum();
+
+                // zero out the score for lines <20 or >120 characters, excluding the speaking character text
+                if document.original[i].split_once(": ").unwrap().1.len() < 20
+                    || document.original[i].split_once(": ").unwrap().1.len() > 120
+                {
+                    total_score = 0.0;
+                }
+
+                // save the line's score
+                scores.push((i, OrderedFloat(total_score)));
             }
 
-            // save the line's score
-            scores.push((i, OrderedFloat(total_score)));
+            // sort by score, take the top_n scoring lines, and format to add the line number and score
+            scores.sort_by_key(|(_, score)| -*score);
+
+            scores
+                .into_iter()
+                .take(top_n)
+                .for_each(|(line, score)| {
+                    let output_line = OutputLine {
+                        line: document.original[line].clone(),
+                        score: *score
+                    };
+                    output_episode.lines.push(output_line);
+                });
+
+            let season = output_document.seasons.get_mut(&document.season);
+            match season {
+                None => {
+                    output_document.seasons.insert(document.season, vec![output_episode]);
+                },
+                Some(s) => {
+                    s.push(output_episode);
+                },
+            }
+            
         }
-
-        // sort by score, take the top_n scoring lines, and format to add the line number and score
-        scores.sort_by_key(|(_, score)| -*score);
-
-        scores
-            .into_iter()
-            .take(top_n)
-            .map(|(line, score)| format!("{line}: {score} {}", document.original[line],))
-            .collect()
+        
+        serde_json::to_string(&output_document)
     }
 }
