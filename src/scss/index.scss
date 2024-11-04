@@ -49,7 +49,6 @@ html[data-theme='light'] {
     --hr-colour: #cb502d;
     --link-hover-colour: #e68c40;
     --highlight-colour: #cb502d;
-
 }
 
 html[data-theme='dark'] {
@@ -70,7 +69,12 @@ html[data-theme='dark'] {
     --hr-colour: #6888f7;
     --link-hover-colour: #4a53bc;
     --highlight-colour: #6888f7;
-  }
+
+    .logo {
+    	-webkit-filter: invert(1);
+    	filter: invert(1);
+    }
+}
 
 body, #root, .App {
 	z-index: -10000000;
@@ -113,41 +117,53 @@ header {
 	justify-content: space-between;
 
 	.site-name {
-		margin: .5rem auto 1.5rem 1rem;
-
-		h1 {
-			margin: 0;
-			padding-right: 1rem;
-			font-family: #{$font-family-head};
-			font-weight: 400;
-			font-style: italic;
-			font-size: 3.8rem;
-			color: var(--head-text-colour);
-
-			a {
+		margin: .5rem auto .5rem 1rem;
+		a {
+			display: flex;
+			text-decoration: none;
+			&:hover h1, &:hover h4 {
 				text-decoration: none;
-				&:hover {
-				  text-decoration: none;
-				}
-
-				&:active {
-				  text-decoration: none;
-				}
+				color: var(--link-hover-colour);
+			}
+			&:active{
+				text-decoration: none;
 			}
 		}
 
-		h4 {
-			margin: 0;
-			font-family: #{$font-family-body};
-			font-size: 1rem;
-			color: var(--head-text-colour);
+		.logo {
+			height: 4.5rem;
+			width: 4.5rem;
+			margin-right: .4rem;
+			align-self: center;
 			position: relative;
-			top: -.5rem;
+			top: .3rem;
+		}
+
+		.site-title {
+
+			h1 {
+				margin: 0;
+				padding-right: 1rem;
+				font-family: #{$font-family-head};
+				font-weight: 700;
+				font-style: italic;
+				font-size: 3.8rem;
+				color: var(--head-text-colour);
+			}
+
+			h4 {
+				margin: 0;
+				font-family: #{$font-family-body};
+				font-size: 1rem;
+				color: var(--head-text-colour);
+				position: relative;
+				top: -.5rem;
+			}
 		}
 
 	}
 
-	aside {
+	nav {
 		height: 1.7rem;
 		padding: .5rem .5rem .5rem .7rem;
 		border-top: none;
@@ -213,6 +229,7 @@ a {
 	text-align: center;
 	flex: 1 0 auto;
 	padding: 0 1rem 1rem 1rem;
+	margin-top: 1rem;
 
 	input[type="search"] {
 		height: 3rem;
@@ -380,6 +397,7 @@ svg {
 	padding: 2rem;
 	padding-top: 0;
 	flex: 1 0 auto;
+	margin-top: 1rem;
 
 	h2 {
 		margin-bottom: 1rem;
@@ -433,18 +451,31 @@ svg {
 @media screen and (max-width: 600px) {
 	.App {
 		overflow: visible;
-		
 		width: 90%;
 	}
+
 	header {
 		.site-name {
-			h1 {
-				font-size: 2.5rem;
+			margin-left: .5rem;
+			.logo {
+				height: 2.5rem;
+				width: 2.5rem;
+				top: .1rem;
 			}
+			.site-title {
+				h1 {
+					font-size: 2.1rem;
+				}
 
-			h4 {
-				font-size: .9rem;
+				h4 {
+					font-size: .7rem;
+					top: -.4rem;;
+				}
 			}
 		}
+	}
+
+	.page {
+		margin-top: 0;
 	}
 }
