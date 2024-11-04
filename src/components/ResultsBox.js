@@ -61,7 +61,7 @@ class ResultsBox extends Component {
 			console.error(err);
 			const errMsg = {
 				msg: "Regular expression in search body was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
-				link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+				link: "/?page=help#regex"
 			}
 			this.setState({
 				...this.state,
@@ -80,7 +80,7 @@ class ResultsBox extends Component {
 				console.error(err);
 				const errMsg = {
 					msg: "Regular expression in character parameter was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
-					link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+					link: "/?page=help#regex"
 				}
 				this.setState({
 					...this.state,
@@ -100,7 +100,7 @@ class ResultsBox extends Component {
 				console.error(err);
 				const errMsg = {
 					msg: "Regular expression in episode parameter was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
-					link: "/MLP-Fim-Episode-Transcript-Search?page=help#regex"
+					link: "/?page=help#regex"
 				}
 				this.setState({
 					...this.state,
