@@ -1,0 +1,10 @@
+[package]
+name = "quote-scorer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ordered-float = "4.4.0"
+regex = "1.11.1"
+serde = { version = "1.0.214", features = ["derive"] }
+serde_json = "1.0.132"

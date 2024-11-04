@@ -162,8 +162,6 @@ class ResultsBox extends Component {
 	}
 
 	render() {
-		let errDiv;
-
 		return (
 			<div  className="results-box">
 				<p>Searching for: {this.props.searchString}</p>
@@ -191,8 +189,8 @@ class ResultsBox extends Component {
 				</div>
 
 				<ErrorBox 
-				msg={this.state.errorMsg.msg}
-				link = {this.state.errorMsg.link}
+					msg={this.state.errorMsg.msg}
+					link = {this.state.errorMsg.link}
 				/>
 				
 			</div>
