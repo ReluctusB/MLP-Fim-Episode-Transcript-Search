@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Quando&display=swap');
 
-$font-family: "Quando", "Open Sans", sans-serif;
-$font-family-b: "Judson", serif;
+$font-family-head: "Judson", serif;
+$font-family-body: "Quando", sans-serif;
+$font-family-body-b: "Judson", serif;
 
 
 /*$background-colour: #333333;
@@ -76,7 +76,7 @@ body, #root, .App {
 	z-index: -10000000;
 	position: relative;
 	margin: 0;
-	font-family: #{$font-family};
+	font-family: #{$font-family-body};
 	font-size: 1.2rem;
 	min-height: 100vh;
 }
@@ -112,24 +112,39 @@ header {
 	flex-flow: row-reverse wrap;
 	justify-content: space-between;
 
-	h1 {
-		margin-left: 1rem;
-		margin-right: auto;
-		padding-right: 1rem;
-		font-family: #{$font-family};
-		margin-top: 1rem;
-		color: var(--head-text-colour);
+	.site-name {
+		margin: .5rem auto 1.5rem 1rem;
 
-		a {
-			text-decoration: none;
-			&:hover {
-			  text-decoration: none;
-			}
+		h1 {
+			margin: 0;
+			padding-right: 1rem;
+			font-family: #{$font-family-head};
+			font-weight: 400;
+			font-style: italic;
+			font-size: 3.8rem;
+			color: var(--head-text-colour);
 
-			&:active {
-			  text-decoration: none;
+			a {
+				text-decoration: none;
+				&:hover {
+				  text-decoration: none;
+				}
+
+				&:active {
+				  text-decoration: none;
+				}
 			}
 		}
+
+		h4 {
+			margin: 0;
+			font-family: #{$font-family-body};
+			font-size: 1rem;
+			color: var(--head-text-colour);
+			position: relative;
+			top: -.5rem;
+		}
+
 	}
 
 	aside {
@@ -163,11 +178,11 @@ hr {
 }
 
 p {
-	font-family: #{$font-family-b};
+	font-family: #{$font-family-body-b};
 }
 
 small {
-		font-family: #{$font-family-b};
+		font-family: #{$font-family-body-b};
 		font-size: 1.2rem;
 	}
 
@@ -224,7 +239,7 @@ a {
 		cursor: pointer;
 		border-radius: 10px;
 		border: 2px solid var(--button-border-colour);
-		font-family: #{$font-family-b};
+		font-family: #{$font-family-body-b};
 		&:hover {
 			color: var(--link-hover-colour);
 		}
@@ -250,7 +265,7 @@ a {
 			padding: .1rem .2rem;
 			cursor: pointer;
 			text-decoration: none;
-	font-weight: bold;
+			font-weight: bold;
 
 			&:hover {
 				color: var(--link-hover-colour);
@@ -271,8 +286,7 @@ a {
 			border-top: 3px solid var(--highlight-colour);
 			border-bottom: 3px solid var(--highlight-colour);
 			background-color: var(--background-colour);
-	background-image: var(--background-pattern);
-
+			background-image: var(--background-pattern);
 		}
 	}
 }
@@ -357,7 +371,7 @@ svg {
 	}
 
 	p {
-		font-family: #{$font-family-b};
+		font-family: #{$font-family-body-b};
 		margin: 0;
 	}
 }
@@ -382,7 +396,7 @@ svg {
 	}
 
 	li {
-		font-family: #{$font-family-b};
+		font-family: #{$font-family-body-b};
 	}
 
 	a {
@@ -403,11 +417,6 @@ svg {
 }
 
 @media screen and (max-width: 840px) {
-	header {
-		h1 {
-			font-size: 1.7rem;
-		}
-	}
   .search-bar {
 		input[type="search"] {
 			width: 95%;
@@ -426,5 +435,16 @@ svg {
 		overflow: visible;
 		
 		width: 90%;
+	}
+	header {
+		.site-name {
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h4 {
+				font-size: .9rem;
+			}
+		}
 	}
 }
