@@ -225,8 +225,7 @@ a {
 		border-radius: 10px;
 		border: 2px solid var(--border-colour);
 		border-color: var(--border-colour);
-
-
+		vertical-align: middle;
 	}
 
 	button {
@@ -240,6 +239,7 @@ a {
 		border-radius: 10px;
 		border: 2px solid var(--button-border-colour);
 		font-family: #{$font-family-body-b};
+		vertical-align: middle;
 		&:hover {
 			color: var(--link-hover-colour);
 		}
