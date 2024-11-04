@@ -1,4 +1,8 @@
-# MLP: FiM Episode Transcript Search
+# PonePonePone - MLP: FiM Episode Transcript Search
+
+<p align="center">
+  <a href="https://poneponepone.org/">Website</a>
+</p>
 
 What it says on the tin. Search MLP episode transcripts with ease. Supports RegEx! Transcript data acquired from [here](https://www.kaggle.com/jwiens/my-little-pony-friendship-is-magic-episode-data/version/1). Additional transcript data and corrections done by the dev.
 
@@ -50,4 +54,5 @@ This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
 
 - All My Little Pony: Equestria Girls content
 - My Little Pony: Pony Life
+- Anything that isn't G4
 
