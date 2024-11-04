@@ -2,7 +2,7 @@
   "name": "mlp-database-search",
   "version": "2.1.1",
   "private": true,
-  "homepage": "http://ReluctusB.github.io/MLP-Fim-Episode-Transcript-Search",
+  "homepage": "https://poneponepone.org/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
