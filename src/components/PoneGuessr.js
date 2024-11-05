@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import ScoreDisplay from "./ScoreDisplay";
 import gameData from "../assets/game_tf_idf.json";
 
 const GameStates = Object.freeze({
@@ -140,8 +141,12 @@ class PoneGuessr extends Component {
 		let content;
 		switch(this.state.gameState) {
 			case GameStates.START:
-				content = (
+				content = (<div className="start">
+					<h4>The Premier Pony Quote Guessing Game!</h4>
+					<p>We'll give you <b>fifteen quotes</b> from My Little Pony: Friendship is Magic. Your job is to <b>identify what episode each one is from.</b></p>
+					<p>After each successful guess, <b>you'll be given the choice to make the next question harder, easier, or the same difficulty.</b> Harder questions are worth <b>more points,</b> but they may be trickier! If you get a question wrong, you'll be dropped down a difficulty level. Try to earn as many points as you can before you run out of questions!</p>
 					<button onClick={this.startGame}>Start!</button>
+				</div>
 				);
 				break;
 			case GameStates.QUESTION:
@@ -231,7 +236,7 @@ class PoneGuessr extends Component {
 
   				{content}
   				
-  				<p>Score: {this.state.curScore}</p>
+  				<p>Score: <ScoreDisplay score={this.state.curScore} /></p>
   				
   			</div>
   		);
