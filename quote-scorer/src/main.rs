@@ -1,15 +1,20 @@
-use ordered_float::OrderedFloat;
 use regex::Regex;
 use serde::{Serialize, Deserialize};
 use serde_json::Error;
 use std::{collections::HashMap, fs, fs::File, io::BufReader};
 
-// Top n quotes from each episode to include in output
-const TOP_N: usize = 30;
 // Path to transcript data
 const TRANSCRIPT_FILEPATH: &str = "../src/assets/episodes.json";
 // Path to output file
 const OUTPUT_FILEPATH: &str = "../src/assets/game_tf_idf.json";
+
+// Difficulty score cutoffs. Lines will be sorted into each category if their
+// score is greater than or equal that category's cutoff. 
+const VERY_EASY_CUTOFF: f64 = 1.0;
+const EASY_CUTOFF: f64 = 0.8;
+const NORMAL_CUTOFF: f64 = 0.6;
+const HARD_CUTOFF: f64 = 0.3;
+// Very hard is anything under HARD_CUTOFF
 
 // types for the episodes.json, only including fields we care about
 type Series = HashMap<String, Episode>;
@@ -76,7 +81,7 @@ fn main() {
     */
     println!("=================================================");
     let output_json = timed!("Serialize tf_idf episode data", {
-        match corpus.serialize(TOP_N) {
+        match corpus.serialize() {
             Ok(json) => json,
             Err(e) => panic!("Couldn't serialize tf_idf episode data! Error: {e:?}")
         }
@@ -112,22 +117,19 @@ struct EpisodeDocument {
 }
 
 #[derive(Clone, Default, Serialize)]
-struct OutputDocument {
-    seasons: HashMap<i32, Vec<OutputEpisode>>,
-}
-
-#[derive(Clone, Default, Serialize)]
-struct OutputEpisode {
-    title: String,
-    number_in_season: i32,
-    season: i32,
-    lines: Vec<OutputLine>,
+struct OutputDocument<'a> {
+    lines_by_difficulty: HashMap<&'a str, Vec<OutputLine>>,
+    count_by_difficulty: HashMap<&'a str, i32>,
+    episode_titles: Vec<String>,
 }
 
 #[derive(Clone, Default, Serialize)]
 struct OutputLine {
     line: String,
-    score: f64
+    score: f64,
+    title: String,
+    number_in_season: i32,
+    season: i32,
 }
 
 impl SeriesCorpus {
@@ -196,59 +198,67 @@ impl SeriesCorpus {
         }
     }
 
-    fn serialize(&self, top_n: usize) -> Result<String, Error> {
-        let mut output_document: OutputDocument = Default::default();
+    fn serialize(&self) -> Result<String, Error> {
+        let mut output_document = OutputDocument {
+            lines_by_difficulty: HashMap::from([
+                ("very_easy", vec![]),
+                ("easy", vec![]),
+                ("normal", vec![]),
+                ("hard", vec![]),
+                ("very_hard", vec![]),
+            ]),
+            count_by_difficulty: HashMap::from([
+                ("very_easy", 0),
+                ("easy", 0),
+                ("normal", 0),
+                ("hard", 0),
+                ("very_hard", 0),
+            ]),
+            ..Default::default()
+        };
 
         for (_key, document) in self.documents.clone() {
-            let mut output_episode = OutputEpisode {
-                title: document.title,
-                number_in_season: document.number_in_season,
-                season: document.season,
-                ..Default::default()
-            };
-            let mut scores = Vec::with_capacity(document.terms.len());
+
+            output_document.episode_titles.push(document.title.clone());
 
             // for each line in the episode document...
             for (i, terms) in document.terms.iter().enumerate() {
                 // sum the tf-idf values for each term
-                let mut total_score: f64 = terms
+                let total_score: f64 = terms
                     .iter()
                     .map(|term| *document.tf_idf.get(term).unwrap())
                     .sum();
 
-                // zero out the score for lines <20 or >120 characters, excluding the speaking character text
+                // skip lines <20 or >120 characters, excluding the speaking character text
                 if document.original[i].split_once(": ").unwrap().1.len() < 20
                     || document.original[i].split_once(": ").unwrap().1.len() > 120
                 {
-                    total_score = 0.0;
+                    continue;
                 }
 
-                // save the line's score
-                scores.push((i, OrderedFloat(total_score)));
-            }
+                let output_line = OutputLine {
+                    line: document.original[i].clone(),
+                    score: total_score,
+                    title: document.title.clone(),
+                    number_in_season: document.number_in_season.clone(),
+                    season: document.season.clone(),
+                };
 
-            // sort by score, take the top_n scoring lines, and format to add the line number and score
-            scores.sort_by_key(|(_, score)| -*score);
+                let bucket: &str;
+                if total_score >= VERY_EASY_CUTOFF {
+                    bucket = "very_easy"; 
+                } else if total_score >= EASY_CUTOFF {
+                    bucket = "easy"; 
+                } else if total_score >= NORMAL_CUTOFF {
+                    bucket = "normal"; 
+                } else if total_score >= HARD_CUTOFF {
+                    bucket = "hard"; 
+                } else {
+                    bucket = "very_hard";
+                }
 
-            scores
-                .into_iter()
-                .take(top_n)
-                .for_each(|(line, score)| {
-                    let output_line = OutputLine {
-                        line: document.original[line].clone(),
-                        score: *score
-                    };
-                    output_episode.lines.push(output_line);
-                });
-
-            let season = output_document.seasons.get_mut(&document.season);
-            match season {
-                None => {
-                    output_document.seasons.insert(document.season, vec![output_episode]);
-                },
-                Some(s) => {
-                    s.push(output_episode);
-                },
+                output_document.lines_by_difficulty.get_mut(bucket).unwrap().push(output_line);
+                *output_document.count_by_difficulty.get_mut(bucket).unwrap() += 1;
             }
             
         }

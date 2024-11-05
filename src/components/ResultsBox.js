@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LineBox from "./LineBox";
 import ErrorBox from "./ErrorBox";
 
-import episodeDatabase from "../assets/episodes.json"
+import episodeDatabase from "../assets/episodes.json";
 
 
 class ResultsBox extends Component {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from "./SearchBar";
 import HelpInfo from "./HelpInfo";
+import PoneGuessr from "./PoneGuessr";
 
 class Router extends Component {
 	constructor(props) {
@@ -38,6 +39,8 @@ class Router extends Component {
   				return (<SearchBar/>);
   			case "help":
   				return (<HelpInfo/>);
+  			case "poneguessr":
+  				return (<PoneGuessr/>);
   			default:
   				return (
   					<div className="error-page page">
