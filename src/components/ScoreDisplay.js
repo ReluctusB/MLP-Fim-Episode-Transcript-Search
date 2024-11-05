@@ -12,7 +12,7 @@ class ScoreDisplay extends Component {
   adjustDisplay() {
     let newScore = 0;
     if (this.state.dispScore < this.state.targetScore) {
-      newScore = this.state.dispScore += 1;
+      newScore = this.state.dispScore + 1;
        this.setState({
         ...this.state,
         dispScore: newScore,
