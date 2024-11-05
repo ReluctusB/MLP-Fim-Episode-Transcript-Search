@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import gameData from "../assets/game_tf_idf.json";
 
@@ -184,6 +185,10 @@ class PoneGuessr extends Component {
 				);
 				break;
 			case GameStates.INCORRECT:
+				let seNum;
+				if (this.state.curQuote.season !== 0) {
+					seNum = (<span>S{this.state.curQuote.season} E{this.state.curQuote.number_in_season} </span>)
+				}
 				let failString = "The next question will be easier.";
 				if (this.state.curDifficulty === 0) {
 					failString = "The next question will be the same difficulty.";
@@ -192,7 +197,7 @@ class PoneGuessr extends Component {
 					<div className="result">
 						<h4>Incorrect...</h4>
 						<p>You said {this.state.guess}.</p>
-						<p>The correct answer was <b>S{this.state.curQuote.season} E{this.state.curQuote.number_in_season} {this.state.curQuote.title}</b>.</p>
+						<p>The correct answer was <b>{seNum}{this.state.curQuote.title}</b>.</p>
 						<p>{failString}</p>
 						<button onClick={()=>this.setDifficulty(-1)} title="Next">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-fast-forward-btn-fill" viewBox="0 0 16 16">
@@ -217,6 +222,10 @@ class PoneGuessr extends Component {
 
   		return(
   			<div className="pone-guessr page">
+  				<Helmet>
+					<title>PoneGuessr | PonePonePone - MLP: FiM Transcript Search</title>
+					<meta name="description" content="Test your knowledge of MLP: FiM with this quote guessing game!" />
+				</Helmet>
   				<hr/>
   				<h2>PoneGuessr</h2>
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import ResultsBox from "./ResultsBox"
 
@@ -72,6 +73,9 @@ class SearchBar extends Component {
 	render() {
 		return (
 			<div  className="search-bar">
+				<Helmet>
+					<title>PonePonePone - MLP: FiM Transcript Search</title>
+				</Helmet>
 				<form onSubmit={this.setSearchString}>
 					<input 
 						type="search" 

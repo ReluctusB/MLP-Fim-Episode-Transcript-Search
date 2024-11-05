@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 class HelpInfo extends Component {
 	render() {
   		return(
   			<div className="help-info page">
+  				<Helmet>
+					<title>Help & Info | PonePonePone - MLP: FiM Transcript Search</title>
+				</Helmet>
   				<hr/>
   				<h2>Search Parameters</h2>
   				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: <code>&#123; &#125;</code>. These can be combined with regular searches and each other.</p>

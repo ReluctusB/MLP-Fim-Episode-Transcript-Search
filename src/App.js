@@ -1,4 +1,6 @@
 import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+
 import Router from  "./components/Router";
 import StyleSwitch from "./components/StyleSwitch";
 import ToTop from "./components/ToTop";
@@ -9,47 +11,49 @@ import logo from "./assets/PonePonePoneLogo.svg";
 
 function App() {
   return (
-    <div className="App">
-      <div className="manebar left"></div>
-      <div className="manebar right"></div>
-      <header className="App-header">
-        
-        <nav>
-          <a href="/" title="Search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search-heart-fill" viewBox="0 0 16 16">
-              <path d="M6.5 13a6.47 6.47 0 0 0 3.845-1.258h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1A6.47 6.47 0 0 0 13 6.5 6.5 6.5 0 0 0 6.5 0a6.5 6.5 0 1 0 0 13m0-8.518c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
-            </svg>
-          </a> | <a href="?page=poneguessr" title="PoneGuessr">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-            </svg>
-          </a> | <a href="?page=help" title="Help">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-square-fill" viewBox="0 0 16 16">
-              <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.93 4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-            </svg>
-          </a> | <StyleSwitch/>
-        </nav>
-        <div className="site-name">
-          <a href="/">
-          <img className="logo" src={logo} alt="Logo"/>
-          <div className="site-title">
-            <h1>PonePonePone</h1>
-            <h4>MLP: FiM Transcript Search</h4>
+    <HelmetProvider>
+      <div className="App">
+        <div className="manebar left"></div>
+        <div className="manebar right"></div>
+        <header className="App-header">
+          
+          <nav>
+            <a href="/" title="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search-heart-fill" viewBox="0 0 16 16">
+                <path d="M6.5 13a6.47 6.47 0 0 0 3.845-1.258h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1A6.47 6.47 0 0 0 13 6.5 6.5 6.5 0 0 0 6.5 0a6.5 6.5 0 1 0 0 13m0-8.518c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+              </svg>
+            </a> | <a href="?page=poneguessr" title="PoneGuessr">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+              </svg>
+            </a> | <a href="?page=help" title="Help">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-square-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.93 4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+              </svg>
+            </a> | <StyleSwitch/>
+          </nav>
+          <div className="site-name">
+            <a href="/">
+            <img className="logo" src={logo} alt="Logo"/>
+            <div className="site-title">
+              <h1>PonePonePone</h1>
+              <h4>MLP: FiM Transcript Search</h4>
+            </div>
+            </a>
           </div>
-          </a>
-        </div>
-      </header>
-      <Router />
-      
-      <footer>
-        <hr/>
-        <p>MLP: Friendship is Magic® - © Hasbro Inc.®</p>
-        <p>Created by RB_ | <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search">Github</a> | <a href="https://ko-fi.com/rbunderscore">Like this tool? Consider tipping!</a></p>
-      </footer>
+        </header>
+        <Router />
+        
+        <footer>
+          <hr/>
+          <p>MLP: Friendship is Magic® - © Hasbro Inc.®</p>
+          <p>Created by RB_ | <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search">Github</a> | <a href="https://ko-fi.com/rbunderscore">Like this tool? Consider tipping!</a></p>
+        </footer>
 
-      <ToTop />
-      <CopyNotif />
-    </div>
+        <ToTop />
+        <CopyNotif />
+      </div>
+    </HelmetProvider>
   );
 }
 
