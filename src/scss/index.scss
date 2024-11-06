@@ -1,13 +1,7 @@
+@use "vars.scss" as vars;
+@use "ponequiz.scss";
+
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Quando&display=swap');
-
-$font-family-head: "Judson", serif;
-$font-family-body: "Quando", sans-serif;
-$font-family-body-b: "Judson", serif;
-
-
-/*$background-colour: #333333;
-$box-colour: #111111;
-$text-colour: #bbbbbb;*/
 
 :root {
     --background-colour: #333333;
@@ -80,7 +74,7 @@ body, #root, .App {
 	z-index: -10000000;
 	position: relative;
 	margin: 0;
-	font-family: #{$font-family-body};
+	font-family: #{vars.$font-family-body};
 	font-size: 1.2rem;
 	min-height: 100vh;
 }
@@ -144,7 +138,7 @@ header {
 			h1 {
 				margin: 0;
 				padding-right: 1rem;
-				font-family: #{$font-family-head};
+				font-family: #{vars.$font-family-head};
 				font-weight: 700;
 				font-style: italic;
 				font-size: 3.8rem;
@@ -153,7 +147,7 @@ header {
 
 			h4 {
 				margin: 0;
-				font-family: #{$font-family-body};
+				font-family: #{vars.$font-family-body};
 				font-size: 1rem;
 				color: var(--head-text-colour);
 				position: relative;
@@ -194,11 +188,11 @@ hr {
 }
 
 p {
-	font-family: #{$font-family-body-b};
+	font-family: #{vars.$font-family-body-b};
 }
 
 small {
-		font-family: #{$font-family-body-b};
+		font-family: #{vars.$font-family-body-b};
 		font-size: 1.2rem;
 	}
 
@@ -255,7 +249,7 @@ a {
 		cursor: pointer;
 		border-radius: 10px;
 		border: 2px solid var(--button-border-colour);
-		font-family: #{$font-family-body-b};
+		font-family: #{vars.$font-family-body-b};
 		vertical-align: middle;
 		&:hover {
 			color: var(--link-hover-colour);
@@ -388,7 +382,7 @@ svg {
 	}
 
 	p {
-		font-family: #{$font-family-body-b};
+		font-family: #{vars.$font-family-body-b};
 		margin: 0;
 	}
 }
@@ -414,11 +408,15 @@ svg {
 	}
 
 	li {
-		font-family: #{$font-family-body-b};
+		font-family: #{vars.$font-family-body-b};
 	}
 
 	a {
 		text-decoration: underline;
+	}
+
+	.center {
+		text-align: center;
 	}
 }
 
