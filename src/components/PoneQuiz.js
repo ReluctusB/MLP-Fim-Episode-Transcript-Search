@@ -11,6 +11,7 @@ const GameStates = Object.freeze({
 	GAME_OVER: 3,
 	CORRECT: 4,
 	INCORRECT: 5,
+	FINISHED: 6,
 });
 
 const GameModes = Object.freeze({
@@ -42,7 +43,23 @@ const PointValues = [
 	10000,
 ];
 
-class PoneGuessr extends Component {
+const Multipliers = [
+	1,
+	1,
+	1,
+	1.5,
+	2,
+	2.5,
+	3,
+	3.5,
+	4,
+	4.5,
+	5
+]
+
+const NUMBEROFQUESTIONS = 10;
+
+class PoneQuiz extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -51,12 +68,18 @@ class PoneGuessr extends Component {
 			curQuote: {},
 			curDifficulty: 1,
 			curScore: 0,
+			prevScore: 0,
 			curQuestionCount: 0,
+			curWrongCount: 0,
+			curStreak: 0,
+			curHistory: [],
 			guess: "",
+			highScore: null,
 		}
 		this.checkAnswer = this.checkAnswer.bind(this);
 		this.startGame = this.startGame.bind(this);
 		this.findQuote = this.findQuote.bind(this);
+		this.finishGame = this.finishGame.bind(this);
 	}
 
 	setGameState(newState) {
@@ -66,15 +89,26 @@ class PoneGuessr extends Component {
 		});
 	}
 
+	getMultiplier() {
+		if (this.state.curStreak < Multipliers.length) {
+			return Multipliers[this.state.curStreak];
+		} else {
+			return Multipliers[Multipliers.length - 1]
+		}
+	}
+
 	startGame() {
 		this.setState({
 			...this.state,
 			curDifficulty: 1,
-			curPoint: 0,
+			curScore: 0,
+			prevScore: 0,
 			curQuestionCount: 0,
+			curWrongCount: 0,
+			curStreak: 0,
+			curHistory: [],
 			guess: "",
-		});
-		this.findQuote(1);
+		}, () => this.findQuote(1));
 	}
 
 	findQuote(difficulty) {
@@ -89,6 +123,7 @@ class PoneGuessr extends Component {
 			curQuote: fetchedQuote,
 			curDifficulty: difficulty,
 			curQuestionCount: newQuestionCount,
+			prevScore: this.state.curScore,
 			guess: "",
 			gameState: GameStates.QUESTION,
 		});
@@ -109,15 +144,21 @@ class PoneGuessr extends Component {
 		let lowerAnswer = this.state.curQuote.title.toLowerCase();
 
 		if (lowerGuess === lowerAnswer) {
-			let newScore = this.state.curScore + PointValues[this.state.curDifficulty];
+			let newScore = this.state.curScore + PointValues[this.state.curDifficulty] * this.getMultiplier();
+
 			this.setState({
 				...this.state,
 				curScore: newScore,
+				curStreak: this.state.curStreak + 1,
+				curHistory: [...this.state.curHistory, {difficulty: this.state.curDifficulty, correct: true}],
 				gameState: GameStates.CORRECT,
 			});
 		} else {
 			this.setState({
 				...this.state,
+				curStreak: 0,
+				curWrongCount: this.state.curWrongCount + 1,
+				curHistory: [...this.state.curHistory, {difficulty: this.state.curDifficulty, correct: false}],
 				gameState: GameStates.INCORRECT,
 			});
 		}
@@ -137,25 +178,65 @@ class PoneGuessr extends Component {
 		this.findQuote(newDifficulty);
 	}
 
+	finishGame() {
+		let newHS = this.state.highScore
+		if (this.state.highScore === null || this.state.curScore >= this.state.highScore.score) {
+			newHS = {
+				score: this.state.curScore,
+				dateSet: Date.now(),
+			}
+			localStorage.setItem('quiz-high-score', JSON.stringify(newHS));
+		}
+		this.setState({
+			...this.state,
+			gameState: GameStates.FINISHED,
+			highScore: newHS,
+		});
+	}
+
+	componentDidMount() {
+		let storedHighScore = localStorage.getItem('quiz-high-score');
+		if (storedHighScore !== null) {
+			try {
+				storedHighScore = JSON.parse(storedHighScore);
+			} catch {
+				storedHighScore = null;
+			}
+			
+		}
+		console.log(storedHighScore);
+		this.setState({
+			...this.state,
+			highScore: storedHighScore
+		});
+  	}
+
 	render() {
 		let content;
 		switch(this.state.gameState) {
 			case GameStates.START:
 				content = (<div className="start">
-					<h4>The Premier Pony Quote Guessing Game!</h4>
-					<p>We'll give you <b>fifteen quotes</b> from My Little Pony: Friendship is Magic. Your job is to <b>identify what episode each one is from.</b></p>
-					<p>After each successful guess, <b>you'll be given the choice to make the next question harder, easier, or the same difficulty.</b> Harder questions are worth <b>more points,</b> but they may be trickier! If you get a question wrong, you'll be dropped down a difficulty level. Try to earn as many points as you can before you run out of questions!</p>
+					<h4><i>The PonePonePone Quote Quiz!</i></h4>
+					<p>We'll give you <b>ten quotes</b> from My Little Pony: Friendship is Magic. Your job is to <b>identify what episode each one is from.</b></p>
+					<p>After each successful guess, <b>you'll be given the choice to make the next question harder, easier, or the same difficulty.</b> Harder questions are worth <b>more points,</b> but they may be trickier! If you get a question wrong, you'll be dropped down a difficulty level. Additionally, you'll <b>earn more points if you answer multiple questions correctly in a row</b>. Try to earn as many points as you can before you run out of questions!</p>
 					<button onClick={this.startGame}>Start!</button>
 				</div>
 				);
 				break;
+
 			case GameStates.QUESTION:
+				let multiplierSpan;
+				let multiplier = this.getMultiplier();
+				if (multiplier > 1) {
+					multiplierSpan = (<span>x{multiplier}</span>);
+				}
 				content = (
 					<div className="question">
+						<ScoreDisplay score={this.state.curScore} prevScore={this.state.prevScore} streak={this.state.curStreak} />
 						<div className="quote-box">
 							<p>Quote #{this.state.curQuestionCount}</p>
 							<p>Difficulty: {PrettyDifficulties[this.state.curDifficulty]}</p>
-							<h5>For {PointValues[this.state.curDifficulty]} points:</h5>
+							<h5>For {PointValues[this.state.curDifficulty]} {multiplierSpan} points:</h5>
 							<h4>{this.state.curQuote.line}</h4>
 						</div>
 						<form onSubmit={this.checkAnswer}>
@@ -176,20 +257,34 @@ class PoneGuessr extends Component {
 	  				</div>
 				);
 				break;
-			case GameStates.CORRECT:
-				content = (
-					<div className="result">
-						<h4>Correct!</h4>
-						<p>You got it right!</p>
+
+			case GameStates.CORRECT: {
+				let endButton;
+				if (this.state.curQuestionCount === NUMBEROFQUESTIONS) {
+					endButton = (
+						<button onClick={this.finishGame} title="Finish Game">Finish Game</button>
+					);
+				} else {
+					endButton = (
 						<button onClick={()=>this.setGameState(GameStates.BETWEEN_QUESTION)} title="Next">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-fast-forward-btn-fill" viewBox="0 0 16 16">
 								<path d="M0 4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2m4.271 1.055a.5.5 0 0 1 .52.038L8 7.386V5.5a.5.5 0 0 1 .79-.407l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 8 10.5V8.614l-3.21 2.293A.5.5 0 0 1 4 10.5v-5a.5.5 0 0 1 .271-.445"/>
 							</svg>
 						</button>
+					);
+				}
+				content = (
+					<div className="result">
+						<ScoreDisplay score={this.state.curScore} prevScore={this.state.prevScore} streak={this.state.curStreak} />
+						<h4>Correct!</h4>
+						<p>You got it right!</p>
+						{endButton}
 					</div>
 				);
 				break;
-			case GameStates.INCORRECT:
+			}
+
+			case GameStates.INCORRECT: {
 				let seNum;
 				if (this.state.curQuote.season !== 0) {
 					seNum = (<span>S{this.state.curQuote.season} E{this.state.curQuote.number_in_season} </span>)
@@ -198,23 +293,37 @@ class PoneGuessr extends Component {
 				if (this.state.curDifficulty === 0) {
 					failString = "The next question will be the same difficulty.";
 				}
-				content = (
-					<div className="result">
-						<h4>Incorrect...</h4>
-						<p>You said {this.state.guess}.</p>
-						<p>The correct answer was <b>{seNum}{this.state.curQuote.title}</b>.</p>
-						<p>{failString}</p>
+				let endButton;
+				if (this.state.curQuestionCount === NUMBEROFQUESTIONS) {
+					endButton = (
+						<button onClick={this.finishGame} title="Finish Game">Finish Game</button>
+					);
+				} else {
+					endButton = (
 						<button onClick={()=>this.setDifficulty(-1)} title="Next">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-fast-forward-btn-fill" viewBox="0 0 16 16">
 								<path d="M0 4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2m4.271 1.055a.5.5 0 0 1 .52.038L8 7.386V5.5a.5.5 0 0 1 .79-.407l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 8 10.5V8.614l-3.21 2.293A.5.5 0 0 1 4 10.5v-5a.5.5 0 0 1 .271-.445"/>
 							</svg>
 						</button>
+					);
+				}
+				content = (
+					<div className="result">
+						<ScoreDisplay score={this.state.curScore} prevScore={this.state.prevScore} streak={this.state.curStreak} />
+						<h4>Incorrect...</h4>
+						<p>You said {this.state.guess}.</p>
+						<p>The correct answer was <b>{seNum}{this.state.curQuote.title}</b>.</p>
+						<p>{failString}</p>
+						{endButton}
 					</div>
 				);
 				break;
+			}
+
 			case GameStates.BETWEEN_QUESTION:
 				content = (
 					<div className="difficulty-select">
+						<ScoreDisplay score={this.state.curScore} prevScore={this.state.prevScore} streak={this.state.curStreak} />
 						<h4>Pick your poison!</h4>
 						<p>That last question was {PrettyDifficulties[this.state.curDifficulty].toLowerCase()}. The next question should be...</p>
 						<button onClick={()=>this.setDifficulty(-1)} disabled={this.state.curDifficulty === 0}>Easier!</button>
@@ -223,24 +332,50 @@ class PoneGuessr extends Component {
 					</div>
 				);
 				break;
+
+			case GameStates.FINISHED:
+				content = (
+					<div className="finish-screen">
+						<h3>All done!</h3>
+						<h4>Your score that round was:</h4>
+						<h1>{this.state.curScore} Points!</h1>
+						<h4>Your High Score: {this.state.highScore.score} | <small>{new Date(this.state.highScore.dateSet).toLocaleString()}</small></h4>
+						<button onClick={this.startGame}>Play Again</button>
+						<p>You got {this.state.curWrongCount} wrong.{this.state.curWrongCount === 0 ? " A perfect game!" : ""}</p>
+						<ol className="final-tally">
+							{
+								this.state.curHistory.map((entry, index) => (
+									<li key={index}>{PrettyDifficulties[entry.difficulty]} | {entry.correct ? "Correct" : "Incorrect"}</li>
+								))
+							}
+						</ol>
+					</div>
+				);
+				break;
+
+			default:
+				content = (
+					<div className="error">
+						<p>Something went wrong! Try refreshing the page.</p>
+					</div>
+				);
+				break;
 		}
 
   		return(
   			<div className="pone-guessr page">
   				<Helmet>
-					<title>PoneGuessr | PonePonePone - MLP: FiM Transcript Search</title>
+					<title>Pone Pone Don't Tell Me | PonePonePone - MLP: FiM Transcript Search</title>
 					<meta name="description" content="Test your knowledge of MLP: FiM with this quote guessing game!" />
 				</Helmet>
   				<hr/>
-  				<h2>PoneGuessr</h2>
+  				<h2>Pone Pone Don't Tell Me</h2>
 
   				{content}
-  				
-  				<p>Score: <ScoreDisplay score={this.state.curScore} /></p>
   				
   			</div>
   		);
 	}
 }
 
-export default PoneGuessr;
+export default PoneQuiz;
