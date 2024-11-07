@@ -57,7 +57,10 @@ class HelpInfo extends Component {
   				<p>The original program that scores the difficulty of quotes for Pone Pone Don't Tell Me was made by <a href="https://github.com/csos95">csos95</a>. The game wouldn't have been possible without his expertise, so thank him if you ever run into him!</p>
   				<p>If you like this website, <a href="https://ko-fi.com/rbunderscore">consider leaving a tip</a>!</p>
 
+  				<hr/>
 
+  				<h2>Data Collection</h2>
+  				<p><b>PonePonePone does not collect any personal data</b> and does not use cookies. We do use <a href="https://www.cloudflare.com/web-analytics/">Cloudfare Analytics</a> to track pageviews. We also use localStorage to keep track of what theme you have selected and your Pone Pone Don't Tell Me high score; neither of these things ever leaves your browser.</p> 
   			</div>
   		);
 	}
