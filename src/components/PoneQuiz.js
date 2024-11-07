@@ -119,7 +119,7 @@ class PoneQuiz extends Component {
 		let lineCount = gameData.count_by_difficulty[difString];
 		let quoteIndex = Math.floor(Math.random() * lineCount);
 		let fetchedQuote = gameData.lines_by_difficulty[difString][quoteIndex];
-		console.log(fetchedQuote);
+		//console.log(fetchedQuote);
 		this.setState({
 			...this.state,
 			curQuote: fetchedQuote,
