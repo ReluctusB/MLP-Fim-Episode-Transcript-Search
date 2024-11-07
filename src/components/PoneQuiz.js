@@ -133,9 +133,12 @@ class PoneQuiz extends Component {
 	}
 
 	setGuess(guess) {
+		let adjInString = guess
+  			.replace(/[\u2018\u2019\u0027]/g, "'")
+  			.replace(/[\u201C\u201D]/g, '"');
 		this.setState({
 			...this.state,
-			guess: guess,
+			guess: adjInString,
 		});
 	}
 
