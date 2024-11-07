@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import ScoreDisplay from "./ScoreDisplay";
+import ResultsHistory from "./ResultsHistory";
 import gameData from "../assets/game_tf_idf.json";
 
 const GameStates = Object.freeze({
@@ -15,8 +16,7 @@ const GameStates = Object.freeze({
 });
 
 const GameModes = Object.freeze({
-	TWENTYQ: 0,
-	ENDLESS: 1,
+	TENQ: 0,
 });
 
 const Difficulties = [
@@ -64,13 +64,14 @@ class PoneQuiz extends Component {
 		super(props);
 		this.state = {
 			gameState: GameStates.START,
-			curMode: GameModes.TWENTYQ,
+			curMode: GameModes.TENQ,
 			curQuote: {},
 			curDifficulty: 1,
 			curScore: 0,
 			prevScore: 0,
 			curQuestionCount: 0,
 			curWrongCount: 0,
+			curRightCount: 0,
 			curStreak: 0,
 			curHistory: [],
 			guess: "",
@@ -105,6 +106,7 @@ class PoneQuiz extends Component {
 			prevScore: 0,
 			curQuestionCount: 0,
 			curWrongCount: 0,
+			curRightCount: 0,
 			curStreak: 0,
 			curHistory: [],
 			guess: "",
@@ -150,6 +152,7 @@ class PoneQuiz extends Component {
 				...this.state,
 				curScore: newScore,
 				curStreak: this.state.curStreak + 1,
+				curRightCount: this.state.curRightCount + 1,
 				curHistory: [...this.state.curHistory, {difficulty: this.state.curDifficulty, correct: true}],
 				gameState: GameStates.CORRECT,
 			});
@@ -204,7 +207,6 @@ class PoneQuiz extends Component {
 			}
 			
 		}
-		console.log(storedHighScore);
 		this.setState({
 			...this.state,
 			highScore: storedHighScore
@@ -335,14 +337,8 @@ class PoneQuiz extends Component {
 						<h1>{this.state.curScore} Points!</h1>
 						<h4>Your High Score: {this.state.highScore.score} | <small>{new Date(this.state.highScore.dateSet).toLocaleString()}</small></h4>
 						<button onClick={this.startGame}>Play Again</button>
-						<p>You got {this.state.curWrongCount} wrong.{this.state.curWrongCount === 0 ? " A perfect game!" : ""}</p>
-						<ol className="final-tally">
-							{
-								this.state.curHistory.map((entry, index) => (
-									<li key={index}>{PrettyDifficulties[entry.difficulty]} | {entry.correct ? "Correct" : "Incorrect"}</li>
-								))
-							}
-						</ol>
+						
+						<ResultsHistory history={this.state.curHistory} wrongCount={this.state.curWrongCount} rightCount={this.state.curRightCount} />
 					</div>
 				);
 				break;

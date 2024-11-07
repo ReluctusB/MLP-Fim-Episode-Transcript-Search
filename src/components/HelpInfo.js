@@ -9,6 +9,8 @@ class HelpInfo extends Component {
 					<title>Help & Info | PonePonePone - MLP: FiM Transcript Search</title>
 				</Helmet>
   				<hr/>
+  				<h1>Help & Info</h1>
+  				<hr />
   				<h2>Search Parameters</h2>
   				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: <code>&#123; &#125;</code>. These can be combined with regular searches and each other.</p>
 
@@ -51,8 +53,9 @@ class HelpInfo extends Component {
   				<hr/>
 
   				<h2>About</h2>
-  				<p>This tool was created by RB. Their Fimfiction can be found <a href="https://www.fimfiction.net/user/34408/RB_">here</a>, if you need to bug them about something. Alternatively, if you find something is amiss with this site in particular, you can open an issue <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search/issues">here</a>!</p>
-  				<p>If you like this tool, <a href="https://ko-fi.com/rbunderscore">consider leaving a tip</a>!</p>
+  				<p>This tool was created and is maintained by RB. Their Fimfiction can be found <a href="https://www.fimfiction.net/user/34408/RB_">here</a>, if you need to bug them about something. Alternatively, if you find something is amiss with this site in particular, you can open an issue <a href="https://github.com/ReluctusB/MLP-Fim-Episode-Transcript-Search/issues">here</a>!</p>
+  				<p>The original program that scores the difficulty of quotes for Pone Pone Don't Tell Me was made by <a href="https://github.com/csos95">csos95</a>. The game wouldn't have been possible without his expertise, so thank him if you ever run into him!</p>
+  				<p>If you like this website, <a href="https://ko-fi.com/rbunderscore">consider leaving a tip</a>!</p>
 
 
   			</div>
