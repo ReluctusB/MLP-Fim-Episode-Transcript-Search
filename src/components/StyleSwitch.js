@@ -50,7 +50,7 @@ class StyleSwitch extends Component {
 		}
 		return (
 			<span  className="style-switch">
-				<button onClick={this.switchTheme} title="Switch theme">{icon}</button>
+				<button onClick={this.switchTheme} title="Switch Theme">{icon}</button>
 			</span>
 		);
 	}
