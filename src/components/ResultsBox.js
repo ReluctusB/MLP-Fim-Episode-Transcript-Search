@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import LineBox from "./LineBox";
 import ErrorBox from "./ErrorBox";
 
-import episodeDatabase from "../assets/episodes.json";
-
-
 class ResultsBox extends Component {
 	constructor(props) {
 		super(props);
@@ -15,11 +12,12 @@ class ResultsBox extends Component {
 				link: "",
 			},
 		}
+		this.episodeDatabase = null;
 		this.searchDb = this.searchDb.bind(this);
 		this.clearMatches = this.clearMatches.bind(this);
 	}
 
-	searchDb() {
+	async searchDb() {
 		if (!this.props.searchString) {
 			this.clearMatches();
 			return;
@@ -110,11 +108,16 @@ class ResultsBox extends Component {
 				return;
 			}
 		}
+
+		if (this.episodeDatabase === null) {
+			this.episodeDatabase = await import("../assets/episodes.json");
+		}
 		
 		let matchArray = []
-
-		for (const prop in episodeDatabase) {
-			episodeDatabase[prop].transcript.forEach(lines => {
+		for (const prop in this.episodeDatabase) {
+			console.log(this.episodeDatabase[prop]);
+			if (isNaN(prop)) { continue; }
+			this.episodeDatabase[prop].transcript.forEach(lines => {
 				if (searchRegex.test(lines.line)) {
 					if (charString) {
 						if (!charRegex.test(lines.character)) {
@@ -122,17 +125,17 @@ class ResultsBox extends Component {
 						}
 					}
 					if (epString) {
-						if (!epRegex.test(episodeDatabase[prop].title)) {
+						if (!epRegex.test(this.episodeDatabase[prop].title)) {
 							return
 						}
 					}
 					matchArray.push({
 						line: lines.line,
 						speaker: lines.character,
-						episode: episodeDatabase[prop].title,
-						eNumber: episodeDatabase[prop].number_in_season ? episodeDatabase[prop].number_in_season : "N/A",
-						season: episodeDatabase[prop].season ? episodeDatabase[prop].season : "N/A",
-						link: episodeDatabase[prop].transcript_url,
+						episode: this.episodeDatabase[prop].title,
+						eNumber: this.episodeDatabase[prop].number_in_season ? this.episodeDatabase[prop].number_in_season : "N/A",
+						season: this.episodeDatabase[prop].season ? this.episodeDatabase[prop].season : "N/A",
+						link: this.episodeDatabase[prop].transcript_url,
 					})
 				}
 			})
