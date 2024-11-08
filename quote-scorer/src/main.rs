@@ -1,7 +1,8 @@
 use regex::Regex;
 use serde::{Serialize, Deserialize};
 use serde_json::Error;
-use std::{collections::HashMap, fs, fs::File, io::BufReader};
+use indexmap::IndexMap;
+use std::{fs, fs::File, io::BufReader};
 
 // Path to transcript data
 const TRANSCRIPT_FILEPATH: &str = "../src/assets/episodes.json";
@@ -17,7 +18,7 @@ const HARD_CUTOFF: f64 = 0.3;
 // Very hard is anything under HARD_CUTOFF
 
 // types for the episodes.json, only including fields we care about
-type Series = HashMap<String, Episode>;
+type Series = IndexMap<String, Episode>;
 
 #[derive(Clone, Deserialize)]
 struct Episode {
@@ -50,7 +51,7 @@ macro_rules! timed {
 
 fn main() {
     // load transcripts
-    let mut transcripts: HashMap<String, Episode> = timed!("Load transcripts", {
+    let mut transcripts: IndexMap<String, Episode> = timed!("Load transcripts", {
         let file = File::open(TRANSCRIPT_FILEPATH).expect("Couldn't open episodes.json!");
         let buf = BufReader::new(file);
 
@@ -101,8 +102,8 @@ fn main() {
 
 #[derive(Default)]
 struct SeriesCorpus {
-    documents: HashMap<String, EpisodeDocument>,
-    term_occurrences: HashMap<String, usize>,
+    documents: IndexMap<String, EpisodeDocument>,
+    term_occurrences: IndexMap<String, usize>,
 }
 
 #[derive(Clone, Default)]
@@ -112,14 +113,14 @@ struct EpisodeDocument {
     season: i32,
     original: Vec<String>,
     terms: Vec<Vec<String>>,
-    term_occurrences: HashMap<String, usize>,
-    tf_idf: HashMap<String, f64>,
+    term_occurrences: IndexMap<String, usize>,
+    tf_idf: IndexMap<String, f64>,
 }
 
 #[derive(Clone, Default, Serialize)]
 struct OutputDocument<'a> {
-    lines_by_difficulty: HashMap<&'a str, Vec<OutputLine>>,
-    count_by_difficulty: HashMap<&'a str, i32>,
+    lines_by_difficulty: IndexMap<&'a str, Vec<OutputLine>>,
+    count_by_difficulty: IndexMap<&'a str, i32>,
     episode_titles: Vec<String>,
 }
 
@@ -141,7 +142,7 @@ impl SeriesCorpus {
             // the terms for each line in an episode
             let mut episode_terms = Vec::with_capacity(episode.lines.len());
             // how many times each term occurs in the episode
-            let mut term_occurrences = HashMap::new();
+            let mut term_occurrences = IndexMap::new();
 
             for line in &episode.lines {
                 // strip unwanted characters and split into words, which are the terms to operate on
@@ -176,7 +177,7 @@ impl SeriesCorpus {
                     original,
                     terms: episode_terms,
                     term_occurrences,
-                    tf_idf: HashMap::new(),
+                    tf_idf: IndexMap::new(),
                 },
             );
         }
@@ -200,14 +201,14 @@ impl SeriesCorpus {
 
     fn serialize(&self) -> Result<String, Error> {
         let mut output_document = OutputDocument {
-            lines_by_difficulty: HashMap::from([
+            lines_by_difficulty: IndexMap::from([
                 ("very_easy", vec![]),
                 ("easy", vec![]),
                 ("normal", vec![]),
                 ("hard", vec![]),
                 ("very_hard", vec![]),
             ]),
-            count_by_difficulty: HashMap::from([
+            count_by_difficulty: IndexMap::from([
                 ("very_easy", 0),
                 ("easy", 0),
                 ("normal", 0),
