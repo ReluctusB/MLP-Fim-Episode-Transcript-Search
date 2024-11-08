@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.3ef0cfff.css",
-    "main.js": "/static/js/main.b812f35e.js",
+    "main.js": "/static/js/main.7972c055.js",
     "static/js/453.a58461df.chunk.js": "/static/js/453.a58461df.chunk.js",
     "static/media/PonePonePoneLogo.svg": "/static/media/PonePonePoneLogo.705820b46767a457d1a7d803383a34dd.svg",
     "index.html": "/index.html",
     "main.3ef0cfff.css.map": "/static/css/main.3ef0cfff.css.map",
-    "main.b812f35e.js.map": "/static/js/main.b812f35e.js.map",
+    "main.7972c055.js.map": "/static/js/main.7972c055.js.map",
     "453.a58461df.chunk.js.map": "/static/js/453.a58461df.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3ef0cfff.css",
-    "static/js/main.b812f35e.js"
+    "static/js/main.7972c055.js"
   ]
 }
