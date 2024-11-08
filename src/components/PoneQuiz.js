@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import ScoreDisplay from "./ScoreDisplay";
 import ResultsHistory from "./ResultsHistory";
+import LoadingIcon from "./LoadingIcon";
 
 const GameStates = Object.freeze({
 	START: 0,
@@ -75,6 +76,7 @@ class PoneQuiz extends Component {
 			curHistory: [],
 			guess: "",
 			highScore: null,
+			loading: false,
 		}
 		this.gameData = null;
 		this.checkAnswer = this.checkAnswer.bind(this);
@@ -110,6 +112,7 @@ class PoneQuiz extends Component {
 			curStreak: 0,
 			curHistory: [],
 			guess: "",
+			loading: true,
 		}, () => this.findQuote(1));
 	}
 
@@ -132,6 +135,7 @@ class PoneQuiz extends Component {
 			prevScore: this.state.curScore,
 			guess: "",
 			gameState: GameStates.QUESTION,
+			loading: false,
 		});
 
 	}
@@ -371,7 +375,7 @@ class PoneQuiz extends Component {
   				<hr />
 
   				{content}
-  				
+  				{this.state.loading ? (<LoadingIcon />) : null}
   			</div>
   		);
 	}
