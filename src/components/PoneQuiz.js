@@ -149,7 +149,7 @@ class PoneQuiz extends Component {
 	checkAnswer(e) {
 		e.preventDefault();
 
-		let lowerGuess = this.state.guess.toLowerCase();
+		let lowerGuess = this.state.guess.toLowerCase().trim();
 		let lowerAnswer = this.state.curQuote.title.toLowerCase();
 
 		if (lowerGuess === lowerAnswer) {
@@ -312,7 +312,7 @@ class PoneQuiz extends Component {
 					<div className="result">
 						<ScoreDisplay score={this.state.curScore} questionNumber={this.state.curQuestionCount} prevScore={this.state.prevScore} streak={this.state.curStreak} />
 						<h2>Incorrect...</h2>
-						<p>You said "{this.state.guess}".</p>
+						<p>You said "{this.state.guess.trim()}".</p>
 						<p>The correct answer was <b>{this.state.curQuote.title}</b>{seNum}.</p>
 						<p>{failString}</p>
 						{endButton}
