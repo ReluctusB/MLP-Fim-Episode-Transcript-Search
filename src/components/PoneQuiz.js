@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 
 import ScoreDisplay from "./ScoreDisplay";
 import ResultsHistory from "./ResultsHistory";
-import gameData from "../assets/game_tf_idf.json";
 
 const GameStates = Object.freeze({
 	START: 0,
@@ -77,6 +76,7 @@ class PoneQuiz extends Component {
 			guess: "",
 			highScore: null,
 		}
+		this.gameData = null;
 		this.checkAnswer = this.checkAnswer.bind(this);
 		this.startGame = this.startGame.bind(this);
 		this.findQuote = this.findQuote.bind(this);
@@ -113,12 +113,16 @@ class PoneQuiz extends Component {
 		}, () => this.findQuote(1));
 	}
 
-	findQuote(difficulty) {
+	async findQuote(difficulty) {
+		if (this.gameData === null) {
+			this.gameData = await import("../assets/game_tf_idf.json");
+		}
+
 		let newQuestionCount = this.state.curQuestionCount + 1;
 		let difString = Difficulties[difficulty];
-		let lineCount = gameData.count_by_difficulty[difString];
+		let lineCount = this.gameData.count_by_difficulty[difString];
 		let quoteIndex = Math.floor(Math.random() * lineCount);
-		let fetchedQuote = gameData.lines_by_difficulty[difString][quoteIndex];
+		let fetchedQuote = this.gameData.lines_by_difficulty[difString][quoteIndex];
 		//console.log(fetchedQuote);
 		this.setState({
 			...this.state,
@@ -246,7 +250,7 @@ class PoneQuiz extends Component {
 		  					<input type="text" list="episodes" placeholder="The episode is..." onInput={e => this.setGuess(e.target.value)} value={this.state.guess} autoFocus/>
 							<datalist id="episodes">
 								{
-									gameData.episode_titles.map((title, index) => (
+									this.gameData.episode_titles.map((title, index) => (
 										<option key={index} value={title}/>
 									))
 								}
