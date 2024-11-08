@@ -14,6 +14,8 @@ To run a local version of the tool, navigate to the root in your terminal and ru
 
 The icons used are from [Bootstrap Icons](https://icons.getbootstrap.com/). Please stick with this icon set if possible.
 
+The quote scorer for Pone Pone Don't Tell Me! is written in Rust. Navigate to `quote-scorer` and use `cargo run` to re-generate the data for the game. Note that you should only need to do this if you've made a change to the episodes.json.
+
 ## Search Help
 
 To search by character speaking, use `{character:character name}`:
