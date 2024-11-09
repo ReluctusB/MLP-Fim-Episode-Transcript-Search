@@ -18,31 +18,9 @@ The quote scorer for Pone Pone Don't Tell Me! is written in Rust. Navigate to `q
 
 ## Search Help
 
-To search by character speaking, use `{character:character name}`:
+Information about the site has moved [here](https://poneponepone.org/?page=help).
 
-```
-{character:Sweetie Bell}
-```
-
-To search by episode title, use `{episode:episode name}`:
-
-```
-{episode:Fall Weather Friends}
-```
-
-For example:
-```
-{episode:Fall Weather Friends} {character:Rainbow Dash} Applejack
-```
-This will return any line in Fall Weather Friends spoken by Rainbow Dash containing the word 'Applejack'.
-
-All search fields support Regular Expressions. Regular Expressions are a powerful way to search through text. You can learn more about them [here](https://www.regular-expressions.info/). 
-
-As an example, if you wanted to search for 'Tom' and only 'Tom', you could use the following:
-```
-\bTom\b
-```
-This will match only the word 'Tom', while ignoring words like 'Tomorrow'.
+## Corpus
 
 ### What's in here
 
