@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LineBox from "./LineBox";
 import ErrorBox from "./ErrorBox";
+import LoadingIcon from "./LoadingIcon";
 
 class ResultsBox extends Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ class ResultsBox extends Component {
 				msg: "",
 				link: "",
 			},
+			loadingResults: false,
 		}
 		this.episodeDatabase = null;
 		this.searchDb = this.searchDb.bind(this);
@@ -18,11 +20,11 @@ class ResultsBox extends Component {
 	}
 
 	async searchDb() {
+		let startTimestamp = performance.now();
 		if (!this.props.searchString) {
 			this.clearMatches();
 			return;
 		}
-		
 		let checkString = this.props.searchString.trim();
 
 		// Make sure search contains a character, not including an unescaped doublequote.
@@ -31,7 +33,6 @@ class ResultsBox extends Component {
 			this.clearMatches();
 			return;
 		}
-
 		// Swap unescaped quotes for \b 
 		checkString = checkString.replace(/(?<!\\)"/gi, "\\b")
 
@@ -65,6 +66,7 @@ class ResultsBox extends Component {
 				...this.state,
 				matches: [],
 				errorMsg: errMsg,
+				loadingResults: false,
 			});
 			return;
 		}
@@ -84,6 +86,7 @@ class ResultsBox extends Component {
 					...this.state,
 					matches: [],
 					errorMsg: errMsg,
+					loadingResults: false,
 				});
 				return;
 			}
@@ -104,6 +107,7 @@ class ResultsBox extends Component {
 					...this.state,
 					matches: [],
 					errorMsg: errMsg,
+					loadingResults: false,
 				});
 				return;
 			}
@@ -115,7 +119,6 @@ class ResultsBox extends Component {
 		
 		let matchArray = []
 		for (const prop in this.episodeDatabase) {
-			console.log(this.episodeDatabase[prop]);
 			if (isNaN(prop)) { continue; }
 			this.episodeDatabase[prop].transcript.forEach(lines => {
 				if (searchRegex.test(lines.line)) {
@@ -141,9 +144,12 @@ class ResultsBox extends Component {
 			})
 		}
 
+		console.log(this.props.searchString + " | time:" + (performance.now() - startTimestamp));
+
 		this.setState({
 			...this.state,
 			matches: matchArray,
+			loadingResults: false,
 			errorMsg: {
 				msg: "",
 				link: "",
@@ -154,13 +160,17 @@ class ResultsBox extends Component {
 	clearMatches() {
 		this.setState({
 			...this.state,
-			matches: []
+			matches: [],
+			loadingResults: false,
 		});
 	}
 
 	componentDidUpdate(prevProps) {
   		if (this.props.searchString !== prevProps.searchString) {
-    		this.searchDb();
+    		this.setState({
+				...this.state,
+				loadingResults: true,
+			}, () => this.searchDb());
   		}
 	}
 
@@ -178,6 +188,7 @@ class ResultsBox extends Component {
 				</small></p>
 
 				<div>
+					{this.state.loadingResults ? (<LoadingIcon />) : null}
 					{
 						this.state.matches.map((line, index) => (
 							<LineBox 
