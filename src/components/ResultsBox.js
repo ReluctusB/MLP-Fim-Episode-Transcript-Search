@@ -3,6 +3,11 @@ import LineBox from "./LineBox";
 import ErrorBox from "./ErrorBox";
 import LoadingIcon from "./LoadingIcon";
 
+const ResultsOrder = Object.freeze({
+	EPISODE: 0,
+	DATE: 1,
+});
+
 class ResultsBox extends Component {
 	constructor(props) {
 		super(props);
@@ -38,15 +43,34 @@ class ResultsBox extends Component {
 
 		let charString = null;
 		let epString = null;
+		let orderBy = ResultsOrder.EPISODE;
+		let reverseMatches = false;
 
 		let tags = checkString.match( /{.*?}/gi);
 		for (const tag in tags) {
 			if (tags[tag].startsWith("{character:")) {
-				checkString = checkString.replace(tags[tag], "")
-				charString = tags[tag].replace("{character:", "").replace("}", "").trim()
+				checkString = checkString.replace(tags[tag], "");
+				charString = tags[tag].replace("{character:", "").replace("}", "").trim();
 			} else if (tags[tag].startsWith("{episode:")) {
-				checkString = checkString.replace(tags[tag], "")
-				epString = tags[tag].replace("{episode:", "").replace("}", "").trim()
+				checkString = checkString.replace(tags[tag], "");
+				epString = tags[tag].replace("{episode:", "").replace("}", "").trim();
+			} else if (tags[tag].startsWith("{order:")) {
+				checkString = checkString.replace(tags[tag], "");
+				let orderString = tags[tag].replace("{order:", "").replace("}", "").trim().toLowerCase();
+
+				if (orderString.indexOf("reverse") !== -1) {
+					reverseMatches = true;
+					orderString = orderString.replace("reverse", "").trim()
+				}
+
+				switch(orderString) {
+					case "date":
+						orderBy = ResultsOrder.DATE;
+						break;
+					case "episode":
+					default:
+						break;
+				}
 			}
 		}
 
@@ -139,12 +163,27 @@ class ResultsBox extends Component {
 						eNumber: this.episodeDatabase[prop].number_in_season ? this.episodeDatabase[prop].number_in_season : "N/A",
 						season: this.episodeDatabase[prop].season ? this.episodeDatabase[prop].season : "N/A",
 						link: this.episodeDatabase[prop].transcript_url,
+						airDate: Date.parse(this.episodeDatabase[prop].airdate)
 					})
 				}
 			})
 		}
 
-		console.log(this.props.searchString + " | time:" + (performance.now() - startTimestamp));
+		switch(orderBy) {
+			case ResultsOrder.DATE:
+				matchArray.sort((a, b) => {
+					return (a.airDate - b.airDate);
+				});
+				break;
+			default:
+				break;
+		}
+
+		if (reverseMatches) {
+			matchArray.reverse();
+		}
+
+		console.log(this.props.searchString + " | " + (performance.now() - startTimestamp) + " ms");
 
 		this.setState({
 			...this.state,

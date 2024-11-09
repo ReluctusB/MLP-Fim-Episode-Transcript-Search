@@ -26,7 +26,7 @@ class LineBox extends Component {
 	}
 
 	checkLoad() {
-		let scrollPos = window.scrollY;
+		let scrollPos = window.scrollY + window.innerHeight;
 		let elePos = this.eleRef.current.getBoundingClientRect().top;
 
 		if (scrollPos >= elePos - 1000) {
@@ -79,8 +79,7 @@ class LineBox extends Component {
 		window.dispatchEvent(copyLineEvent);
 	}
 
-	componentDidMount() {
-		
+	componentDidMount() {	
 		window.addEventListener("scroll", this.checkLoad);
 		this.checkLoad();
 		let urlSearchParams = new URLSearchParams(window.location.search);
