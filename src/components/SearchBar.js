@@ -70,6 +70,10 @@ class SearchBar extends Component {
 		this.pullFromURL();
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('popstate', this.pullFromURL);
+	}
+
 	render() {
 		return (
 			<div  className="search-bar">
