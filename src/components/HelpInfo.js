@@ -20,8 +20,24 @@ class HelpInfo extends Component {
   				<h3>Episode</h3>
   				<p>You can search by episode title using <code>&#123;episode: episode name&#125;</code>. For example, to search for lines in Fall Weather Friends, you would search <code>&#123;episode: Fall Weather Friends&#125;</code>. You can also click on an episode title to search its lines.</p>
 
+  				<h3>Order</h3>
+  				<p>By default, lines are displayed in the order they appear in the file containing all the transcript data, namely:</p>
+  				<ol>
+  					<li>Every episode in chronological order</li>
+  					<li>My Little Pony: The Movie</li>
+  					<li>My Little Pony: Rainbow Roadtrip</li>
+  					<li>My Little Pony: Best Gift Ever</li>
+  					<li>Animated shorts in chronological order</li>
+  				</ol>
+  				<p>However, you can change this order by using <code>&#123;order: keyword&#125;</code>. The following keywords are available:</p>
+  				<ul>
+  				<li><code>date</code> | Orders by airdate.</li>
+  				<li><code>reverse</code> | Reverses the current order.</li>
+  				</ul>
+  				<p><code>reverse</code> can be used by itself to modify the default order or combined with another keyword. For example, to search by reversed default order, you can use <code>&#123;order: reverse&#125;</code>, and to search by reverse airdate order, you can use <code>&#123;order: reverse date&#125;</code>.</p>
+
   				<h3>Combining Search Parameters</h3>
-  				<p>Parameters can be combined and added to normal searches. For example, the search <code>&#123;episode: Fall Weather Friends&#125; &#123;character: Rainbow Dash&#125; Applejack</code> will return all lines in Fall Weather Friends spoken by Rainbow Dash containing the word "Applejack".</p>
+  				<p>Parameters can be combined and added to normal searches. For example, the search <code>&#123;episode: Fall Weather Friends&#125; &#123;character: Rainbow Dash&#125; &#123;order: reverse&#125; Applejack</code> will return all lines in Fall Weather Friends spoken by Rainbow Dash containing the word "Applejack" in reverse order.</p>
 
   				<hr/>
 
