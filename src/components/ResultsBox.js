@@ -144,7 +144,7 @@ class ResultsBox extends Component {
 			})
 		}
 
-		console.log(this.props.searchString + " | time:" + (performance.now() - startTimestamp));
+		console.log(this.props.searchString + " | " + (performance.now() - startTimestamp) + " ms");
 
 		this.setState({
 			...this.state,
