@@ -60,9 +60,8 @@ class ResultsBox extends Component {
 
 				if (orderString.indexOf("reverse") !== -1) {
 					reverseMatches = true;
-					orderString = orderString.replace("reverse", "").trim()
+					orderString = orderString.replace("reverse", "").trim();
 				}
-
 				switch(orderString) {
 					case "date":
 						orderBy = ResultsOrder.DATE;
@@ -163,7 +162,7 @@ class ResultsBox extends Component {
 						eNumber: this.episodeDatabase[prop].number_in_season ? this.episodeDatabase[prop].number_in_season : "N/A",
 						season: this.episodeDatabase[prop].season ? this.episodeDatabase[prop].season : "N/A",
 						link: this.episodeDatabase[prop].transcript_url,
-						airDate: Date.parse(this.episodeDatabase[prop].airdate)
+						airDate: Date.parse(this.episodeDatabase[prop].airdate.replace(/-/g, "/")),
 					})
 				}
 			})
