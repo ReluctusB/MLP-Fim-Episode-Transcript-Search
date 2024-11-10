@@ -25,7 +25,7 @@ class HeadAndNav extends Component {
         </nav>
         <div className="site-name">
           <a href="/">
-          <img className="logo" src={logo} alt="Logo"/>
+          <img className="logo" src={logo} alt="Logo" width="500" height="500"/>
           <div className="site-title">
             <h1>PonePonePone</h1>
             <h4>MLP: FiM Transcript Search</h4>
