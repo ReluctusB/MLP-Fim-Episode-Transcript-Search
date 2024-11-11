@@ -336,6 +336,7 @@ a {
 .tooltip {
 	position: relative;
 	display: inline-block;
+	border-bottom: 1px dotted var(--text-colour);
 }
 
 .tooltip .tooltip-text {
@@ -352,6 +353,8 @@ a {
 	padding: .5rem 10px;
 	position: absolute;
 	z-index: 1;
+	max-height: 500px;
+	overflow-y: auto;
 
 	&::after {
 		content: " ";
@@ -362,6 +365,31 @@ a {
 		border-width: 5px;
 		border-style: solid;
 		border-color: transparent transparent var(--button-colour) transparent;
+	}
+
+	button {
+		all: unset;
+			padding: .1rem .2rem;
+			cursor: pointer;
+			text-decoration: none;
+			font-weight: bold;
+
+			&:hover {
+				color: var(--link-hover-colour);
+			}
+	}
+
+	ol {
+		text-align: left;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			&:not(:first-child) {
+				border-top: 1px solid var(--text-colour);
+			}
+		}
 	}
 }
 

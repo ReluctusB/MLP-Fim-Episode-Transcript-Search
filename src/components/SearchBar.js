@@ -51,12 +51,18 @@ class SearchBar extends Component {
 		});
 	}
 
-	searchFromLink(inString) {
-		window.history.pushState(null, null, "?search=" + encodeURIComponent(inString));
+	searchFromLink(inString, append = false) {
+		let outString = "";
+		if (append) {
+			outString = this.state.searchString + " " + inString;
+		} else {
+			outString = inString;
+		}
+		window.history.pushState(null, null, "?search=" + encodeURIComponent(outString));
 		this.setState({
 			...this.state,
-			preSearchString: inString,
-			searchString: inString,
+			preSearchString: outString,
+			searchString: outString,
 		});
 		window.scroll({
 			top: 0,
