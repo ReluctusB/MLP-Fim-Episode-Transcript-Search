@@ -333,6 +333,70 @@ a {
    	}	
 }
 
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted var(--text-colour);
+}
+
+.tooltip .tooltip-text {
+	visibility: hidden;
+	width: 250px;
+	background-color: var(--background-colour);
+	color: var(--text-colour);
+	border: 2px solid var(--button-colour);
+	text-align: center;
+	border-radius: 6px;
+	top: 100%;
+	left: 50%;
+	margin-left: -130px;
+	padding: .5rem 10px;
+	position: absolute;
+	z-index: 1;
+	max-height: 500px;
+	overflow-y: auto;
+
+	&::after {
+		content: " ";
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: transparent transparent var(--button-colour) transparent;
+	}
+
+	button {
+		all: unset;
+			padding: .1rem .2rem;
+			cursor: pointer;
+			text-decoration: none;
+			font-weight: bold;
+
+			&:hover {
+				color: var(--link-hover-colour);
+			}
+	}
+
+	ol {
+		text-align: left;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			&:not(:first-child) {
+				border-top: 1px solid var(--text-colour);
+			}
+		}
+	}
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
 svg {
 	position: relative;
 	top: 3px;
@@ -395,19 +459,53 @@ svg {
 	h2 {
 		margin-bottom: 1rem;
 		font-size: 1.9rem;
+		text-decoration: underline;
 	}
 
 	h3 {
 		margin-bottom: .5rem;
 	}
 
-	p, ul, ol {
+	p, ul, ol, dl {
 		margin-top: .2rem;
+		margin-left: 1rem;
 		font-size: 1.3rem;
 	}
 
-	li {
+	li, dd, dt {
 		font-family: #{vars.$font-family-body-b};
+	}
+
+	ul li::marker {
+		content: "•  ";
+	}
+
+	dl {
+		padding: 0 1.4rem;
+
+		dt {
+			font-size: 1.3rem;
+
+			&::before {
+				content: "• ";
+				position: relative;
+				margin-right: .2rem;
+			}
+		}
+
+		dd {
+			margin-bottom: .7rem;
+			margin-left: 1.5rem;
+			position: relative;
+			font-style: italic;
+			top: -.2rem;
+
+			&::before {
+				content: "↪ ";
+				font-style: normal;
+			}
+		}
+
 	}
 
 	a {
@@ -474,5 +572,9 @@ svg {
 
 	.page {
 		margin-top: 0;
+
+		p, ul, ol, dl {
+			margin-left: .5rem;
+		}
 	}
 }
