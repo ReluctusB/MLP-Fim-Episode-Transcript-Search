@@ -43,6 +43,7 @@ class ResultsBox extends Component {
 
 		let charString = null;
 		let epString = null;
+		let writerString = null;
 		let orderBy = ResultsOrder.EPISODE;
 		let reverseMatches = false;
 
@@ -54,6 +55,9 @@ class ResultsBox extends Component {
 			} else if (tags[tag].startsWith("{episode:")) {
 				checkString = checkString.replace(tags[tag], "");
 				epString = tags[tag].replace("{episode:", "").replace("}", "").trim();
+			} else if (tags[tag].startsWith("{writer:")) {
+				checkString = checkString.replace(tags[tag], "");
+				writerString = tags[tag].replace("{writer:", "").replace("}", "").trim();
 			} else if (tags[tag].startsWith("{order:")) {
 				checkString = checkString.replace(tags[tag], "");
 				let orderString = tags[tag].replace("{order:", "").replace("}", "").trim().toLowerCase();
@@ -136,6 +140,27 @@ class ResultsBox extends Component {
 			}
 		}
 
+		// Writer parameter regex
+		let writerRegex;
+		if(writerString) {
+			try {
+				writerRegex = new RegExp(writerString, "i");
+			} catch(err) {
+				console.error(err);
+				const errMsg = {
+					msg: "Regular expression in writer parameter was malformed! Check for unclosed brackets or parentheses, or look at the console for details!",
+					link: "/?page=help#regex"
+				}
+				this.setState({
+					...this.state,
+					matches: [],
+					errorMsg: errMsg,
+					loadingResults: false,
+				});
+				return;
+			}
+		}
+
 		if (this.episodeDatabase === null) {
 			this.episodeDatabase = await import("../assets/episodes.json");
 		}
@@ -155,6 +180,11 @@ class ResultsBox extends Component {
 							return
 						}
 					}
+					if (writerString) {
+						if (!writerRegex.test(this.episodeDatabase[prop].writers)) {
+							return
+						}
+					}
 					matchArray.push({
 						line: lines.line,
 						speaker: lines.character,
@@ -163,6 +193,7 @@ class ResultsBox extends Component {
 						season: this.episodeDatabase[prop].season ? this.episodeDatabase[prop].season : "N/A",
 						link: this.episodeDatabase[prop].transcript_url,
 						airDate: Date.parse(this.episodeDatabase[prop].airdate.replace(/-/g, "/")),
+						writers: this.episodeDatabase[prop].writers
 					})
 				}
 			})

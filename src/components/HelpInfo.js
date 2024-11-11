@@ -17,10 +17,13 @@ class HelpInfo extends Component {
   				<p>You can refine your search by using special search parameters. Search parameters are denoted by curly brackets: <code>&#123; &#125;</code>. These can be combined with regular searches and each other.</p>
 
   				<h3>Character</h3>
-  				<p>You can search by character using <code>&#123;character: character name&#125;</code>. For example, to search for lines said by Rainbow Dash, you would search <code>&#123;character: Rainbow Dash&#125;</code>. You can also click on a character's name to search their lines.</p>
+  				<p>You can search by character using <code>&#123;character: <i>character name</i>&#125;</code>. For example, to search for lines said by Rainbow Dash, you would search <code>&#123;character: Rainbow Dash&#125;</code>. You can also click on a character's name to search their lines.</p>
 
   				<h3>Episode</h3>
-  				<p>You can search by episode title using <code>&#123;episode: episode name&#125;</code>. For example, to search for lines in Fall Weather Friends, you would search <code>&#123;episode: Fall Weather Friends&#125;</code>. You can also click on an episode title to search its lines.</p>
+  				<p>You can search by episode title using <code>&#123;episode: <i>episode name</i>&#125;</code>. For example, to search for lines in Fall Weather Friends, you would search <code>&#123;episode: Fall Weather Friends&#125;</code>. You can also click on an episode title to search its lines.</p>
+
+  				<h3>Writer</h3>
+  				<p>You can search by episode writer using <code>&#123;writer: <i>writer name</i>&#125;</code>. For example, to search for lines in episodes written by Lauren Faust, you would search <code>&#123;writer: Lauren Faust&#125;</code>. You can also hover over an episode title and click the episode's writers in the tooltip to search for them.</p>
 
   				<h3>Order</h3>
   				<p>By default, lines are displayed in the order they appear in the file containing all the transcript data, namely:</p>
@@ -31,7 +34,7 @@ class HelpInfo extends Component {
   					<li>My Little Pony: Best Gift Ever</li>
   					<li>Animated shorts in chronological order</li>
   				</ol>
-  				<p>However, you can change this order by using <code>&#123;order: keyword&#125;</code>. The following keywords are available:</p>
+  				<p>However, you can change this order by using <code>&#123;order: <i>keyword</i>&#125;</code>. The following keywords are available:</p>
   				<dl>
   					<dt><code>date</code></dt>
   					<dd>Orders by airdate.</dd>
@@ -39,7 +42,7 @@ class HelpInfo extends Component {
   					<dt><code>reverse</code></dt> 
   					<dd>Reverses the current order.</dd>
   				</dl>
-  				<p><code>reverse</code> can be used by itself to modify the default order or combined with another keyword. For example, to search by reversed default order, you can use <code>&#123;order: reverse&#125;</code>, and to search by reverse airdate order, you can use <code>&#123;order: reverse date&#125;</code>.</p>
+  				<p><code>reverse</code> can be used by itself to modify the default order or combined with another keyword. For example, to search by reversed default order, you can use <code>&#123;order: reverse&#125;</code>, and to search by reverse airdate order, you can use <code>&#123;order: reverse date&#125;</code>. The order of keywords doesn't matter.</p>
 
   				<h3>Combining Search Parameters</h3>
   				<p>Parameters can be combined and added to normal searches. For example, the search <code>&#123;episode: Fall Weather Friends&#125; &#123;character: Rainbow Dash&#125; &#123;order: reverse&#125; Applejack</code> will return all lines in Fall Weather Friends spoken by Rainbow Dash containing the word "Applejack" in reverse order.</p>

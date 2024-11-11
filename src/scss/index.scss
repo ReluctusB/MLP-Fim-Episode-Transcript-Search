@@ -333,6 +333,42 @@ a {
    	}	
 }
 
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltip-text {
+	visibility: hidden;
+	width: 250px;
+	background-color: var(--background-colour);
+	color: var(--text-colour);
+	border: 2px solid var(--button-colour);
+	text-align: center;
+	border-radius: 6px;
+	top: 100%;
+	left: 50%;
+	margin-left: -130px;
+	padding: .5rem 10px;
+	position: absolute;
+	z-index: 1;
+
+	&::after {
+		content: " ";
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: transparent transparent var(--button-colour) transparent;
+	}
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
 svg {
 	position: relative;
 	top: 3px;
